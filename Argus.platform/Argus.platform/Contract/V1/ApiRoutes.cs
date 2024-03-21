@@ -22,6 +22,15 @@
 
         }
 
+        public static class Document
+        {
+            public const string GetAll = Base + "/documents";
+            public const string Get = Base + "/documents/{id}";
+            public const string Create = Base + "/documents";
+            public const string Delete = Base + "/documents/{id}";
+            public const string Renew = Base + "/documents/{id}/renew";
+        }
+
         public static class Role
         {
             public const string GetAll = Base + "/roles";

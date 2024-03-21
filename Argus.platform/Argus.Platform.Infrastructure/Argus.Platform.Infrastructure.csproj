@@ -32,8 +32,4 @@
     <ProjectReference Include="..\Argus.Platform.Core\Argus.Platform.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Persistance\Repository\" />
-  </ItemGroup>
-
 </Project>

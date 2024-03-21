@@ -4,10 +4,10 @@ using Argus.Platform.Contract.V1;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Argus.Platform.Controllers
+namespace Argus.Platform.Controllers.v1
 {
     [ApiController]
-  
+
     public class UserController : Controller
     {
 
@@ -35,7 +35,7 @@ namespace Argus.Platform.Controllers
 
         }
 
-     
+
         [HttpPost(ApiRoutes.User.Login)]
         public async Task<IActionResult> Login([FromBody] LoginInputDto request)
         {

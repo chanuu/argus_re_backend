@@ -4,7 +4,7 @@ using Argus.Platform.Core.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Argus.Platform.Controllers
+namespace Argus.Platform.Controllers.v1
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -70,6 +70,6 @@ namespace Argus.Platform.Controllers
             return Ok("Add Permision To Role Sucessfully !");
         }
 
-        
+
     }
 }

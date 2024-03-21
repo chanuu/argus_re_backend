@@ -22,7 +22,7 @@ namespace Argus.Platform.Infrastructure
             return services.AddDbContext<ApiContext>(options =>
             {
               
-                options.UseNpgsql(@"Host=localhost; Database=Emaster; Username=postgres; Password=123qwe", npgsqlOptionsAction: npgsqlOptions =>
+                options.UseNpgsql(connectionString, npgsqlOptionsAction: npgsqlOptions =>
                 {
                     npgsqlOptions.MigrationsAssembly(migrationsAssemblyName);
                 });

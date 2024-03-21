@@ -8,7 +8,7 @@ namespace Argus.Platform.Core.Common
 {
    public class BaseEntity
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public DateTime? CreationTime { get; set; }
 
         public DateTime? DeletionTime { get; set; }

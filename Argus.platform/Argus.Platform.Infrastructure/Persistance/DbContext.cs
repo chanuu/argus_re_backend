@@ -1,4 +1,5 @@
 ﻿using Argus.Platform.Core.Common;
+using Argus.Platform.Core.Complience.Documents;
 using Argus.Platform.Core.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,8 @@ namespace Argus.Platform.Infrastructure.Persistance
    public class ApiContext : IdentityDbContext<User, Role, string>, IUnitOfWork
     {
         public ApiContext(DbContextOptions<ApiContext> options) : base(options) { }
+
+        public DbSet<Document> Documents { get; set; }
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
            
