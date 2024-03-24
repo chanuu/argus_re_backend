@@ -30,8 +30,10 @@ namespace Argus.Platform.Core.Complience.Documents
         public DocumentType DocumentTypes { get; set; }
         public Guid DocumentTypeId { get; set; }
 
+        public IEnumerable<DocumentRenewal> DocumentRenewal { get; set; }
+
         public static Document Create(string code,string name,Guid TenantId ,string accessLevel,
-            int validPeriod,DateTime? issueDate, int alertBefore,bool isExpired,string status)
+            int validPeriod,DateTime? issueDate, int alertBefore,bool isExpired,string status,Guid documentTypeId)
         {
 
             if (code is null)
@@ -40,6 +42,7 @@ namespace Argus.Platform.Core.Complience.Documents
                 throw new Exception("Access Level Cannot Be Null");
             else if (validPeriod <= 0)
                 throw new Exception("Valid Period Must Be Positive value and Grater Then Zeoro");
+           
 
             Document document = new Document() 
             {
@@ -48,7 +51,8 @@ namespace Argus.Platform.Core.Complience.Documents
                 TenantId = TenantId,
                 AlertBefore = alertBefore,
                 IsExpired = isExpired,
-                Status = status
+                Status = status,
+                DocumentTypeId = documentTypeId
             };
 
             return document;

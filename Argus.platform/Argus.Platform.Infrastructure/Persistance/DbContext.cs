@@ -1,5 +1,6 @@
 ﻿using Argus.Platform.Core.Common;
 using Argus.Platform.Core.Complience.Documents;
+using Argus.Platform.Core.Complience.Project;
 using Argus.Platform.Core.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +22,18 @@ namespace Argus.Platform.Infrastructure.Persistance
 
         public DbSet<DocumentType> DocumentTypes { get; set; }
 
-       
+        public DbSet<DocumentRenewal> DocumentRenewals { get; set; }
+
+        public DbSet<Project> Project { get; set; }
+
+        public DbSet<ProjectTask> ProjectTasks { get; set; }
+
+        public DbSet<TaskComments> TaskComments { get; set; }
+
+        public DbSet<TaskAttachment> TaskAttachment { get; set; }
+
+
+
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
            

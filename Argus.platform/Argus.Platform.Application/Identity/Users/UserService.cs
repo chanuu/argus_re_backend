@@ -157,7 +157,7 @@ namespace Argus.Platform.Application.Identity.Users
 
             if(User is null)
             {
-                throw new Exception("User Name Or Password Is Incorrect !");
+                throw new Exception("Cannot find user with given user name");
             }
 
             if (User.IsActive == false)
@@ -167,8 +167,12 @@ namespace Argus.Platform.Application.Identity.Users
 
           
             var result = await _UserManager.CheckPasswordAsync(User, Request.Password);
+            if(result == false)
+            {
+                throw new Exception("User name or password is incorrect !");
+            }
            
-            if (result == true)
+            else if (result == true)
             {
 
                 var Claim = await _UserManager.GetClaimsAsync(User.Adapt<User>());

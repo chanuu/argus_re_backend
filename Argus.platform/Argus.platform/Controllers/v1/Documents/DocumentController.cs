@@ -2,6 +2,7 @@
 using Argus.Platform.Contract.V1;
 using Argus.Platform.Controllers.v1.Documents.DTOs;
 using Argus.Platform.Core.Complience.Documents;
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Argus.Platform.Controllers.v1.Documents
@@ -38,10 +39,8 @@ namespace Argus.Platform.Controllers.v1.Documents
         public async Task<IActionResult> AddDocument(DocumentDto documentDto)
         {
             // Perform any necessary validation or mapping from DTO to entity
-            var document = new Document
-            {
-                Code = documentDto.DocCode
-            };
+           
+            var document =  documentDto.Adapt<Document>();
             var addedDocument = await _documentService.AddDocumentAsync(document);
             return CreatedAtAction(nameof(GetDocument), new { id = addedDocument.Id }, addedDocument);
         }
@@ -56,7 +55,7 @@ namespace Argus.Platform.Controllers.v1.Documents
             }
 
             // Perform any necessary validation or mapping from DTO to entity
-            existingDocument.Code = documentDto.DocCode;
+            existingDocument.Code = documentDto.Code;
 
             var updatedDocument = await _documentService.UpdateDocumentAsync(existingDocument);
             return Ok(updatedDocument);

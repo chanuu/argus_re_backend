@@ -3,6 +3,7 @@ using System;
 using Argus.Platform.Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Argus.Platform.Migrations
 {
     [DbContext(typeof(ApiContext))]
-    partial class ApiContextModelSnapshot : ModelSnapshot
+    [Migration("20240324174514__document_reneals")]
+    partial class _document_reneals
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -200,259 +203,6 @@ namespace Argus.Platform.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DocumentTypes");
-                });
-
-            modelBuilder.Entity("Argus.Platform.Core.Complience.Project.Project", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("AccessGroupId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("AccessLevel")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("CreationTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("DeletedBy")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("DueDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("LastModifiedOn")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("LastUpdatedBy")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("OwnerID")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("ProjectName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("RecordSignature")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime?>("StartedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("TenentId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Project");
-                });
-
-            modelBuilder.Entity("Argus.Platform.Core.Complience.Project.ProjectTask", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("CategoryID")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime?>("CompletedDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("CreationTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("DeletedBy")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime?>("DueDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("HandleByID")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Importance")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("LastModifiedOn")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("LastUpdatedBy")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("OwnerId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("ProjectId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("RecordSignature")
-                        .HasColumnType("uuid");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProjectId");
-
-                    b.ToTable("ProjectTasks");
-                });
-
-            modelBuilder.Entity("Argus.Platform.Core.Complience.Project.TaskAttachment", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("CreationTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("DeletedBy")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("LastModifiedOn")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("LastUpdatedBy")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("ProjectTaskId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("RecordSignature")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("TaskMasterId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("TenantId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TaskMasterId");
-
-                    b.ToTable("TaskAttachment");
-                });
-
-            modelBuilder.Entity("Argus.Platform.Core.Complience.Project.TaskComments", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Comment")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("CommentAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("CommentBy")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("CreationTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("DeletedBy")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("LastModifiedOn")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("LastUpdatedBy")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("ProjectTaskId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("RecordSignature")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("Tagged")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("TenantId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProjectTaskId");
-
-                    b.ToTable("TaskComments");
                 });
 
             modelBuilder.Entity("Argus.Platform.Core.Identity.Role", b =>
@@ -743,39 +493,6 @@ namespace Argus.Platform.Migrations
                     b.Navigation("Document");
                 });
 
-            modelBuilder.Entity("Argus.Platform.Core.Complience.Project.ProjectTask", b =>
-                {
-                    b.HasOne("Argus.Platform.Core.Complience.Project.Project", "Project")
-                        .WithMany("ProjectTasks")
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Project");
-                });
-
-            modelBuilder.Entity("Argus.Platform.Core.Complience.Project.TaskAttachment", b =>
-                {
-                    b.HasOne("Argus.Platform.Core.Complience.Project.ProjectTask", "ProjectTasks")
-                        .WithMany("TaskAttachments")
-                        .HasForeignKey("TaskMasterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ProjectTasks");
-                });
-
-            modelBuilder.Entity("Argus.Platform.Core.Complience.Project.TaskComments", b =>
-                {
-                    b.HasOne("Argus.Platform.Core.Complience.Project.ProjectTask", "ProjectTasks")
-                        .WithMany()
-                        .HasForeignKey("ProjectTaskId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ProjectTasks");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Argus.Platform.Core.Identity.Role", null)
@@ -835,16 +552,6 @@ namespace Argus.Platform.Migrations
             modelBuilder.Entity("Argus.Platform.Core.Complience.Documents.DocumentType", b =>
                 {
                     b.Navigation("Documents");
-                });
-
-            modelBuilder.Entity("Argus.Platform.Core.Complience.Project.Project", b =>
-                {
-                    b.Navigation("ProjectTasks");
-                });
-
-            modelBuilder.Entity("Argus.Platform.Core.Complience.Project.ProjectTask", b =>
-                {
-                    b.Navigation("TaskAttachments");
                 });
 #pragma warning restore 612, 618
         }
