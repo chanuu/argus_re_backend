@@ -9,6 +9,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Argus.Platform.Infrastructure.Persistance
 {
@@ -17,6 +18,10 @@ namespace Argus.Platform.Infrastructure.Persistance
         public ApiContext(DbContextOptions<ApiContext> options) : base(options) { }
 
         public DbSet<Document> Documents { get; set; }
+
+        public DbSet<DocumentType> DocumentTypes { get; set; }
+
+       
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
            

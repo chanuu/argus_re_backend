@@ -38,5 +38,14 @@
             public const string Create = Base + "/roles";
             public const string Delete = Base + "/roles/{id}";
         }
+
+        public static class DocumentType
+        {
+            public const string GetAll = Base + "/documenttypes";
+            public const string Get = Base + "/documenttypes/{id}";
+            public const string Create = Base + "/documenttypes";
+            public const string Update = Base + "/documenttypes/{id}";
+            // Add more routes as needed
+        }
     }
 }

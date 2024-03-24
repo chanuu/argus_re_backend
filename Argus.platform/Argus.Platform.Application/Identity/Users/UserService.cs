@@ -155,6 +155,11 @@ namespace Argus.Platform.Application.Identity.Users
         {
             var User = await GetExistingUser(Request);
 
+            if(User is null)
+            {
+                throw new Exception("User Name Or Password Is Incorrect !");
+            }
+
             if (User.IsActive == false)
             {
                 return null;

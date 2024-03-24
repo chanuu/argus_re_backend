@@ -27,7 +27,7 @@ namespace Argus.Platform.Core.Complience.Documents
         public string Status { get; set; }
 
         [ForeignKey("DocumentTypeId")]
-        public Document Documents { get; set; }
+        public DocumentType DocumentTypes { get; set; }
         public Guid DocumentTypeId { get; set; }
 
         public static Document Create(string code,string name,Guid TenantId ,string accessLevel,

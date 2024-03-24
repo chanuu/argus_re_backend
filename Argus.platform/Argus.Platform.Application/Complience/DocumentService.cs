@@ -28,18 +28,50 @@ namespace Argus.Platform.Application.Complience
 
         public async Task<Document> AddDocumentAsync(Document _document)
         {
-            // You may perform any necessary business logic validation here 
-            var document = _documentRepository.Add(_document);
-            await _documentRepository.UnitOfWork.SaveChangesAsync();
-            return document;
+            if (!ValidateDocument(_document))
+            {
+                throw new Exception("Please Complete Required Fields");
+            }
+            else
+            {
+                var document = _documentRepository.Add(_document);
+                await _documentRepository.UnitOfWork.SaveChangesAsync();
+                return document;
+            }
+
         }
 
         public async Task<Document> UpdateDocumentAsync(Document _document)
         {
-            // You may perform any necessary business logic validation here
-            var document = await _documentRepository.Update(_document);
-            await _documentRepository.UnitOfWork.SaveChangesAsync();
-            return document;
+           
+            if (!ValidateDocument(_document))
+            {
+                throw new Exception("Please Complete Required Fields");
+            }
+            else
+            {
+                var document = await _documentRepository.Update(_document);
+                await _documentRepository.UnitOfWork.SaveChangesAsync();
+                return document;
+            }
+
         }
+
+
+        private bool ValidateDocument(Document document)
+        {
+            switch (document)
+            {
+                case { Code: null }:
+                    throw new Exception("Document Code cannot be null");
+                case { AccessLevel: null or "" }:
+                    throw new Exception("Document Access Level cannot be null or empty");
+                case { AlertBefore: <= 0 }:
+                    throw new Exception("Alert Before cannot be Zero or Negative");
+                default:
+                    return true;
+            }
+        }
+
     }
 }
