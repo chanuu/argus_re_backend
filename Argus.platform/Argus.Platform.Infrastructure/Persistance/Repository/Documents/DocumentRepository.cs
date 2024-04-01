@@ -25,27 +25,52 @@ namespace Argus.Platform.Infrastructure.Persistance.Repository.Documents
 
         public Document Add(Document document)
         {
+            document.DocumentRenewal = new List<DocumentRenewal>();
+            document.DocumentRenewal.Add(new DocumentRenewal {Id = Guid.NewGuid(), FromDate = DateTime.UtcNow.Date, ExpireDate = DateTime.UtcNow.AddMonths(document.ValidPeriod),ScanCopy= "",Status = DocumentStatus.Valid });
             return _context.Documents.Add(document).Entity;
         }
 
+        public async Task<Document> AddRenewalAsync(DocumentRenewal document)
+        {
+            var documents = await _context
+                .Documents.Include(x=>x.DocumentRenewal)
+                .Where(x => x.Id == document.DocumentId)
+                .SingleOrDefaultAsync();
+            if(documents is null)
+            {
+                throw new Exception("No document with given Id");
+            }
+            document.DocumentId = documents.Id;
+            _context.DocumentRenewals.Add(document);
+            
+            
+            await _context.SaveChangesAsync();
+            return documents;
+        }
 
         public async Task<IEnumerable<Document>> GetAllAsync()
         {
-            return await _context.Documents.ToListAsync();
+            return  await _context.Documents.Include(x => x.DocumentTypes).ToListAsync();
+            
         }
 
         public async Task<Document> GetAsync(Guid orderId)
         {
-            return await _context.Documents.SingleOrDefaultAsync();
+            return await _context.Documents.
+                Include(x=>x.DocumentRenewal)
+                .SingleOrDefaultAsync();
         }
 
         public async Task<Document> Update(Document document)
         {
+           
             _context.Documents.Update(document);
 
             await _context.SaveChangesAsync();
 
             return document;
         }
+
+       
     }
 }

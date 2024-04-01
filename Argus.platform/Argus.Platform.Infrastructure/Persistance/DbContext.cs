@@ -1,4 +1,5 @@
 ﻿using Argus.Platform.Core.Common;
+using Argus.Platform.Core.Complience.Audits;
 using Argus.Platform.Core.Complience.Documents;
 using Argus.Platform.Core.Complience.Project;
 using Argus.Platform.Core.Identity;
@@ -24,13 +25,19 @@ namespace Argus.Platform.Infrastructure.Persistance
 
         public DbSet<DocumentRenewal> DocumentRenewals { get; set; }
 
-        public DbSet<Project> Project { get; set; }
+        public DbSet<Project> Projects { get; set; }
 
         public DbSet<ProjectTask> ProjectTasks { get; set; }
 
         public DbSet<TaskComments> TaskComments { get; set; }
 
         public DbSet<TaskAttachment> TaskAttachment { get; set; }
+
+        public DbSet<DocumentReview> DocumentReviews { get; set; }
+
+        public DbSet<Audit> Audits { get; set; }
+
+        public DbSet<AuditRequirements> AuditRequirements { get; set; }
 
 
 

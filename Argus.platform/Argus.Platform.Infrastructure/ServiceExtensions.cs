@@ -26,7 +26,9 @@ namespace Argus.Platform.Infrastructure
                 {
                     npgsqlOptions.MigrationsAssembly(migrationsAssemblyName);
                 });
-            }).AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
+            })
+                
+                .AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
                 
                 .AddDefaultIdentity<User>(options =>
             {
@@ -38,7 +40,7 @@ namespace Argus.Platform.Infrastructure
                 options.Password.RequireUppercase = false;
                 options.User.RequireUniqueEmail = true;
             })
-
+                
                .AddRoles<Role>()
 
                .AddEntityFrameworkStores<ApiContext>()
