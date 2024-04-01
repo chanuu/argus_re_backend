@@ -73,5 +73,31 @@ namespace Argus.Platform.Application.Complience
             }
         }
 
+        public async Task<Document> AddRenewalAsync(DocumentRenewal documentrenewal)
+        {
+           if(documentrenewal is null)
+            {
+                throw new Exception("Your input is not valid");
+            }
+            
+           var document =  await  _documentRepository.GetAsync(documentrenewal.DocumentId);
+           if(document == null)
+            {
+                throw new Exception("Cannot find document with given id");
+            }
+            else if(document.DocumentRenewal.Any() &&  document.DocumentRenewal.Last().ExpireDate?.Date > DateTime.UtcNow.Date)
+            {
+               
+                throw new Exception("You cannot renew valid document");
+               
+            }else if (documentrenewal.FromDate < document.DocumentRenewal.Last().ExpireDate?.Date)
+            {
+                throw new Exception("Renewal start date is not valid");
+            }
+            // set document expire date based on valid period
+            documentrenewal.ExpireDate = documentrenewal.FromDate?.AddMonths(document.ValidPeriod);
+
+            return await _documentRepository.AddRenewalAsync(documentrenewal);
+        }
     }
 }

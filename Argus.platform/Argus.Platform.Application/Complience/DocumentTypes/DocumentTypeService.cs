@@ -29,7 +29,7 @@ namespace Argus.Platform.Application.Complience.DocumentTypes
         public async Task<DocumentType> AddDocumentTypeAsync(DocumentType documentType)
         {
             // Validation logic can be added here
-            if(ValidateDocumentType(documentType) == true)
+            if(await ValidateDocumentTypeAsync(documentType) == true)
             {
                 var addedDocumentType = _documentTypeRepository.Add(documentType);
                 await _documentTypeRepository.UnitOfWork.SaveChangesAsync();
@@ -50,13 +50,13 @@ namespace Argus.Platform.Application.Complience.DocumentTypes
             return updatedDocumentType;
         }
 
-        private bool ValidateDocumentType(DocumentType documentType)
+        private async Task<bool> ValidateDocumentTypeAsync(DocumentType documentType)
         {
             if(documentType == null)
             {
                 throw new Exception("Document Type Cannot Be Null");
             }
-            else if(IsAlreadyExist(documentType) == true)
+            else if(await IsAlreadyExistAsync(documentType) == true)
             {
                 throw new Exception("Document Type Is Alredy Exist !");
             }
@@ -66,9 +66,9 @@ namespace Argus.Platform.Application.Complience.DocumentTypes
             }
         }
 
-        private bool IsAlreadyExist(DocumentType _documentType)
+        private async Task<bool> IsAlreadyExistAsync(DocumentType _documentType)
         {
-            var documentType = _documentTypeRepository.GetByNameAsync(_documentType);
+            var documentType = await _documentTypeRepository.GetByNameAsync(_documentType);
             if (documentType == null)
             {
                 return false;

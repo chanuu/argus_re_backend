@@ -14,5 +14,7 @@ namespace Argus.Platform.Application.Complience
         Task<Document> GetDocumentAsync(Guid documentId);
         Task<Document> AddDocumentAsync(Document document);
         Task<Document> UpdateDocumentAsync(Document document);
+
+        Task<Document> AddRenewalAsync(DocumentRenewal document);
     }
 }

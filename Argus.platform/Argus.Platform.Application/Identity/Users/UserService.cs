@@ -75,7 +75,7 @@ namespace Argus.Platform.Application.Identity.Users
             // map dto to user model using automapper helper 
           
             var mappedUser = request.Adapt<User>();
-
+            mappedUser.IsActive = true;
 
             var result = await _UserManager.CreateAsync(mappedUser, request.Password);
 
@@ -390,7 +390,7 @@ namespace Argus.Platform.Application.Identity.Users
             user.LastName = request.LastName;
             user.Email = request.Email;
             user.PhoneNumber = request.PhoneNumber;
-
+            user.IsActive = true;
             // Save the changes to the database
             var result = await _UserManager.UpdateAsync(user);
 
