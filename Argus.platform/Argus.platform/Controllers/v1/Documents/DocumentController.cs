@@ -21,7 +21,7 @@ namespace Argus.Platform.Controllers.v1.Documents
         public async Task<IActionResult> GetAllDocuments()
         {
             var documents = await _documentService.GetAllDocumentsAsync();
-            return Ok(documents);
+            return Ok(documents.Adapt<List<DocumentGetAllDto>>());
         }
 
         [HttpGet(ApiRoutes.Document.Get)]
@@ -32,7 +32,7 @@ namespace Argus.Platform.Controllers.v1.Documents
             {
                 return NotFound();
             }
-            return Ok(document);
+            return Ok(document.Adapt<DocumentGetDto>());
         }
 
         [HttpPost(ApiRoutes.Document.Create)]
@@ -59,6 +59,14 @@ namespace Argus.Platform.Controllers.v1.Documents
 
             var updatedDocument = await _documentService.UpdateDocumentAsync(existingDocument);
             return Ok(updatedDocument);
+        }
+
+        [HttpPost(ApiRoutes.Document.Renew)]
+        public async Task<IActionResult> AddDocumentRenewal(DocumentRenewalDto renewal)
+        {
+            var documentRenewal =   renewal.Adapt<DocumentRenewal>();
+            await  _documentService.AddRenewalAsync(documentRenewal);
+            return Ok(renewal);
         }
     }
 }

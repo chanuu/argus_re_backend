@@ -30,7 +30,7 @@ namespace Argus.Platform.Config
             {
                 var services = scope.ServiceProvider;
                 var context = services.GetService<ApiContext>();
-                context.Database.Migrate();
+               // context.Database.Migrate();
             }
 
             return host;

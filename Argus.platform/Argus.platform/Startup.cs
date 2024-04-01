@@ -1,4 +1,5 @@
-﻿using Argus.Platform.Infrastructure.Middleware;
+﻿using Amazon.S3;
+using Argus.Platform.Infrastructure.Middleware;
 using Argus.Platform.Infrastructure.Services;
 using Argus.Platform.Installers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -30,8 +31,22 @@ namespace Argus.Platform
             // Register service that implment IScopedService,ITransientServices 
             services.AddServices();
 
-           
-                
+            services.AddCors(options =>
+             {
+                 options.AddDefaultPolicy(
+                     builder =>
+                     {
+                         builder.AllowAnyOrigin()
+                                             .AllowAnyHeader()
+                                             .AllowAnyMethod();
+                     });
+             });
+            services.AddAWSLambdaHosting(LambdaEventSource.HttpApi);
+
+            services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
+            services.AddAWSService<IAmazonS3>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,7 +63,7 @@ namespace Argus.Platform
           
 
             app.UseRouting();
-
+            app.UseCors();
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseMiddleware<ExceptionMiddleware>();

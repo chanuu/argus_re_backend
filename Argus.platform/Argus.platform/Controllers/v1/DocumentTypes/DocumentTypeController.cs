@@ -2,6 +2,8 @@
 using Argus.Platform.Contract.V1;
 using Argus.Platform.Controllers.v1.DocumentTypes.DTOs;
 using Argus.Platform.Core.Complience.Documents;
+
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Argus.Platform.Controllers.v1.DocumentTypes
@@ -54,7 +56,8 @@ namespace Argus.Platform.Controllers.v1.DocumentTypes
         public async Task<IActionResult> GetAllDocumentTypes()
         {
             var documentTypes = await _documentTypeService.GetAllDocumentTypesAsync();
-            return Ok(documentTypes);
+            
+            return Ok(documentTypes.Adapt<List<DocumentTypeDto>>());
         }
 
         [HttpGet(ApiRoutes.DocumentType.Get)]

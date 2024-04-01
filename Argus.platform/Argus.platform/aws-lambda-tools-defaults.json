@@ -1,0 +1,21 @@
+
+{
+    "region" : "us-east-1",
+    "profile" : "chanaka",
+    "configuration" : "Release",
+    "framework"     : "net8.0",
+    "function-name" : "argus-platform",
+    "package-type"  : "Zip",
+    "function-handler" : "Argus.Platform",
+    "function-memory-size" : 512,
+    "function-role"        : "arn:aws:iam::730335394644:role/lambda_exec_argus-platform",
+    "function-timeout"     : 60,
+    "function-runtime"     : "dotnet8",
+    "function-architecture" : "x86_64",
+    "function-subnets"      : "",
+    "function-security-groups" : "",
+    "tracing-mode"             : "PassThrough",
+    "environment-variables"    : "\"ASPNETCORE_ENVIRONMENT\"=\"Development\"",
+    "image-tag"                : "",
+    "function-description"     : ""
+}

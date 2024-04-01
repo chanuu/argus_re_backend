@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Argus.Platform.Migrations
 {
     [DbContext(typeof(ApiContext))]
-    [Migration("20240324192925__add_project")]
-    partial class _add_project
+    [Migration("20240401093225__init")]
+    partial class _init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -69,6 +69,12 @@ namespace Argus.Platform.Migrations
                     b.Property<bool>("IsExpired")
                         .HasColumnType("boolean");
 
+                    b.Property<bool>("IsRenewable")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsReviewable")
+                        .HasColumnType("boolean");
+
                     b.Property<DateTime?>("IssueDate")
                         .HasColumnType("timestamp with time zone");
 
@@ -86,9 +92,11 @@ namespace Argus.Platform.Migrations
                     b.Property<Guid>("RecordSignature")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("ReviewInterval")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
 
                     b.Property<Guid>("TenantId")
                         .HasColumnType("uuid");
@@ -149,9 +157,8 @@ namespace Argus.Platform.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
 
                     b.Property<int>("TenantId")
                         .HasColumnType("integer");
@@ -161,6 +168,57 @@ namespace Argus.Platform.Migrations
                     b.HasIndex("DocumentId");
 
                     b.ToTable("DocumentRenewals");
+                });
+
+            modelBuilder.Entity("Argus.Platform.Core.Complience.Documents.DocumentReview", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("CreationTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DeletedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("DeletionTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("DocumentId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("LastModifiedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("LastUpdatedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("RecordSignature")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("ReviewAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("ReviewBy")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DocumentReviews");
                 });
 
             modelBuilder.Entity("Argus.Platform.Core.Complience.Documents.DocumentType", b =>
@@ -274,7 +332,7 @@ namespace Argus.Platform.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Project");
+                    b.ToTable("Projects");
                 });
 
             modelBuilder.Entity("Argus.Platform.Core.Complience.Project.ProjectTask", b =>
