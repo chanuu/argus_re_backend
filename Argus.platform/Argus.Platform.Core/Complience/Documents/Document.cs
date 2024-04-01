@@ -24,16 +24,22 @@ namespace Argus.Platform.Core.Complience.Documents
 
         public bool IsExpired { get; set; }
 
-        public string Status { get; set; }
+        public DocumentStatus Status { get; set; }
 
         [ForeignKey("DocumentTypeId")]
         public DocumentType DocumentTypes { get; set; }
         public Guid DocumentTypeId { get; set; }
 
-        public IEnumerable<DocumentRenewal> DocumentRenewal { get; set; }
+        public bool IsRenewable { get; set; }
+
+        public bool IsReviewable { get; set; }
+
+        public int ReviewInterval { get; set; }
+
+        public List<DocumentRenewal> DocumentRenewal { get; set; }
 
         public static Document Create(string code,string name,Guid TenantId ,string accessLevel,
-            int validPeriod,DateTime? issueDate, int alertBefore,bool isExpired,string status,Guid documentTypeId)
+            int validPeriod,DateTime? issueDate, int alertBefore,bool isExpired,DocumentStatus status,Guid documentTypeId)
         {
 
             if (code is null)

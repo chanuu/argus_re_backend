@@ -19,7 +19,7 @@ namespace Argus.Platform.Core.Complience.Documents
         public Document Document { get; set; }
         public Guid DocumentId { get; set; }
 
-        public string Status { get; set; }
+        public DocumentStatus Status { get; set; }
 
 
     }

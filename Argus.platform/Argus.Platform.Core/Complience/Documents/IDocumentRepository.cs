@@ -9,12 +9,14 @@ namespace Argus.Platform.Core.Complience.Documents
 {
     public interface IDocumentRepository : IRepository<Document>, ITransientService
     {
-        Document Add(Document order);
+        Document Add(Document document);
 
-        Task<Document> Update(Document order);
+        Task<Document> Update(Document document);
 
-        Task<Document> GetAsync(Guid orderId);
+        Task<Document> GetAsync(Guid documentId);
 
         Task<IEnumerable<Document>> GetAllAsync();
+
+        Task<Document> AddRenewalAsync(DocumentRenewal document);
     }
 }
