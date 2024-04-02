@@ -32,6 +32,18 @@
             public const string Review = Base + "/documents/{id}/review";
         }
 
+        public static class Audits
+        {
+            public const string GetAll = Base + "/audits";
+            public const string Get = Base + "/audits/{id}";
+            public const string Create = Base + "/audits";
+            public const string Delete = Base + "/audits/{id}";
+            public const string Update = Base + "/audits/{id}";
+            public const string AddDocument = Base + "/audits/{id}/addocument";
+            public const string RemoveDocument = Base + "/audits/{id}/remove";
+
+        }
+
         public static class Role
         {
             public const string GetAll = Base + "/roles";
