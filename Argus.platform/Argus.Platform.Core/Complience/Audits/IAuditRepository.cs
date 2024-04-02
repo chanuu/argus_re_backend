@@ -11,7 +11,7 @@ namespace Argus.Platform.Core.Complience.Audits
     {
         Task<Audit> AddAsync(Audit audit);
         Task<Audit> UpdateAsync(Audit audit);
-        Task<Audit> GetByIdAsync(Guid id);
+        Task<AuditViewModel> GetByIdAsync(Guid id);
         Task<IEnumerable<Audit>> GetAllAsync();
 
         Task AddAuditRequirementAsync(Guid auditId, AuditRequirements auditRequirement);

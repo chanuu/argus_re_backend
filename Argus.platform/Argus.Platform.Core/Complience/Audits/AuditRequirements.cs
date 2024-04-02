@@ -1,4 +1,5 @@
 ﻿using Argus.Platform.Core.Common;
+using Argus.Platform.Core.Complience.Documents;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,11 +11,14 @@ namespace Argus.Platform.Core.Complience.Audits
 {
     public class AuditRequirements : BaseEntity
     {
+        [ForeignKey("DocumentId")]
         public Guid DocumentId { get; set; }
+
+        public Document Document { get; set; }
 
         public RequirementStatus Status { get; set; }
 
-        [ForeignKey("DocumentId")]
+        [ForeignKey("AuditId")]
         public Audit Audit { get; set; }
 
         public Guid AuditId { get; set; }

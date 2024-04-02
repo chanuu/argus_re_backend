@@ -22,7 +22,7 @@ namespace Argus.Platform.Controllers.v1.Audits
         public async Task<IActionResult> GetAll()
         {
             var audits = await _auditService.GetAllAuditsAsync();
-            return Ok(audits.Adapt<AuditListDto>());
+            return Ok(audits.Adapt<List<AuditListDto>>());
         }
 
         [HttpGet("{id}")]
@@ -33,7 +33,7 @@ namespace Argus.Platform.Controllers.v1.Audits
             {
                 return NotFound();
             }
-            return Ok(audit);
+            return Ok(audit.Adapt<GetAuditDto>());
         }
 
         [HttpPost]

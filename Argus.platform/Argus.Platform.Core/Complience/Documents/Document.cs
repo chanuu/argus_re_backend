@@ -1,4 +1,5 @@
 ﻿using Argus.Platform.Core.Common;
+using Argus.Platform.Core.Complience.Audits;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -37,6 +38,8 @@ namespace Argus.Platform.Core.Complience.Documents
         public int ReviewInterval { get; set; }
 
         public List<DocumentRenewal> DocumentRenewal { get; set; }
+
+        public List<Audit> Audits { get; set; }
 
         public static Document Create(string code,string name,Guid TenantId ,string accessLevel,
             int validPeriod,DateTime? issueDate, int alertBefore,bool isExpired,DocumentStatus status,Guid documentTypeId)

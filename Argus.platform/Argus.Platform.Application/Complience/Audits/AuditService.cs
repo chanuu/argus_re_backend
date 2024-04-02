@@ -26,7 +26,7 @@ namespace Argus.Platform.Application.Complience.Audits
             return await _auditRepository.GetAllAsync();
         }
 
-        public async Task<Audit> GetAuditByIdAsync(Guid id)
+        public async Task<AuditViewModel> GetAuditByIdAsync(Guid id)
         {
             return await _auditRepository.GetByIdAsync(id);
         }

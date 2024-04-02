@@ -1,4 +1,5 @@
-﻿using Argus.Platform.Core.Common;
+﻿using Argus.Platform.Application.Complience.Audits;
+using Argus.Platform.Core.Common;
 using Argus.Platform.Core.Complience.Audits;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -32,15 +33,52 @@ namespace Argus.Platform.Infrastructure.Persistance.Repository.Audits
 
         public async Task<IEnumerable<Audit>> GetAllAsync()
         {
-            return await _context.Audits.Include(a => a.AuditRequirements).ToListAsync();
-        }
-
-        public async Task<Audit> GetByIdAsync(Guid id)
-        {
             return await _context.Audits
                 .Include(a => a.AuditRequirements)
-                .FirstOrDefaultAsync(a => a.Id == id);
+                  .ThenInclude(ar => ar.Document)
+
+                .ToListAsync();
+
+
         }
+        public async Task<AuditViewModel> GetByIdAsync(Guid id)
+        {
+            // Fetch the audit and related data
+            var audit = await _context.Audits
+                 .Include(a => a.AuditRequirements)
+                     .ThenInclude(ar => ar.Document)
+                         .ThenInclude(d => d.DocumentRenewal) // Include DocumentRenewal
+                 .Include(a => a.AuditRequirements) // You need to repeat the Include for AuditRequirements
+                     .ThenInclude(ar => ar.Document)
+                         .ThenInclude(d => d.DocumentTypes) // Then include DocumentType
+                 .AsNoTracking()
+                 .FirstOrDefaultAsync(a => a.Id == id);
+
+            // Check if the audit exists
+            if (audit == null) return null;
+
+            // Manually project the audit to the AuditViewModel
+            var auditViewModel = new AuditViewModel
+            {
+                Id = audit.Id,
+                BuyerId = audit.BuyerId,
+                Name = audit.Name,
+                Frequency = audit.Frequency,
+                AuditRequirements = audit.AuditRequirements.Select(ar => new AuditRequirementsViewModel
+                {
+                    DocumentId = ar.DocumentId,
+                    DocumentName = ar.Document.Name,
+                    Type = ar.Document.DocumentTypes.Name, 
+                    ValidUntil = ar.Document.DocumentRenewal.LastOrDefault()?.ExpireDate, 
+                    Status = ar.Status,
+                    AuditId = audit.Id
+                }).ToList()
+            };
+
+            return auditViewModel;
+        }
+
+       
 
         public async Task<Audit> UpdateAsync(Audit audit)
         {
