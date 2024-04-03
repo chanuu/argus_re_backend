@@ -88,5 +88,16 @@
             // Add more routes as needed
         }
 
+        public static class Buyers
+        {
+            public const string GetAll = Base + "/buyers";
+            public const string Get = Base + "/buyers/{id}";
+            public const string Create = Base + "/buyers";
+            public const string Update = Base + "/buyers/{id}";
+            public const string Delete = Base + "/buyers/{id}";
+
+            // Add more routes as needed
+        }
+
     }
 }

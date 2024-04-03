@@ -2,6 +2,7 @@
 using Argus.Platform.Core.Complience.Audits;
 using Argus.Platform.Core.Complience.Documents;
 using Argus.Platform.Core.Complience.Project;
+using Argus.Platform.Core.Configuration;
 using Argus.Platform.Core.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -39,7 +40,7 @@ namespace Argus.Platform.Infrastructure.Persistance
 
         public DbSet<AuditRequirements> AuditRequirements { get; set; }
 
-
+        public DbSet<Buyer> Buyers { get; set; }
 
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
