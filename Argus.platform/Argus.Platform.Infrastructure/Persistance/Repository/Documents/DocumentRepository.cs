@@ -54,10 +54,11 @@ namespace Argus.Platform.Infrastructure.Persistance.Repository.Documents
             
         }
 
-        public async Task<Document> GetAsync(Guid orderId)
+        public async Task<Document> GetAsync(Guid Id)
         {
             return await _context.Documents.
                 Include(x=>x.DocumentRenewal)
+                .Where(x=>x.Id == Id)
                 .SingleOrDefaultAsync();
         }
 

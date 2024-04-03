@@ -43,7 +43,7 @@ namespace Argus.Platform.Controllers.v1.Audits
         {
            var audit =  auditDto.Adapt<Audit>();
             var createdAudit = await _auditService.AddAuditAsync(audit);
-            return CreatedAtAction(nameof(GetById), new { id = createdAudit.Id }, createdAudit);
+            return CreatedAtAction(nameof(GetById), new { id = createdAudit.Id }, createdAudit.Adapt<GetAuditDto>());
         }
 
         [HttpPut(ApiRoutes.Audits.Update)]
@@ -58,10 +58,10 @@ namespace Argus.Platform.Controllers.v1.Audits
             return Ok(updatedAudit);
         }
         [HttpPost(ApiRoutes.Audits.AddDocument)]
-        public async Task<IActionResult> AddAuditRequirement(Guid auditId, [FromBody] AddAuditRequirementInputDto auditRequirementDto)
+        public async Task<IActionResult> AddAuditRequirement(Guid id, [FromBody] AddAuditRequirementInputDto auditRequirementDto)
         {
             var auditRequirement = auditRequirementDto.Adapt<AuditRequirements>();
-            await _auditService.AddAuditRequirementAsync(auditId, auditRequirement);
+            await _auditService.AddAuditRequirementAsync(id, auditRequirement);
             return Ok();
         }
 
