@@ -30,7 +30,7 @@ namespace Argus.Platform
 
             // Register service that implment IScopedService,ITransientServices 
             services.AddServices();
-
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             services.AddCors(options =>
              {
                  options.AddDefaultPolicy(
@@ -45,7 +45,7 @@ namespace Argus.Platform
 
             services.AddDefaultAWSOptions(Configuration.GetAWSOptions());
             services.AddAWSService<IAmazonS3>();
-
+            
 
         }
 
