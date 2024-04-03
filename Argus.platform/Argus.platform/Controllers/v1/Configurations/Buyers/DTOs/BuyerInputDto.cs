@@ -4,7 +4,7 @@
 
     public record BuyerDetailDto(Guid Id, string Name, String Email, string Address);
 
-    public record BuyerListDto(string Name, String Email, string Address);
+    public record BuyerListDto(Guid Id, string Name, String Email, string Address);
 
     public record BuyerUpdateDto(string Name, String Email, string Address);
 
