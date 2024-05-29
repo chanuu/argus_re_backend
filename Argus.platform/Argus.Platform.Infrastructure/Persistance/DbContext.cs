@@ -99,7 +99,10 @@ namespace Argus.Platform.Infrastructure.Persistance
         {
 
 
-            var entries = ChangeTracker.Entries().Where(E => E.State == EntityState.Added || E.State == EntityState.Modified || E.State == EntityState.Deleted).ToList();
+            var entries = ChangeTracker
+                .Entries()
+                .Where(E => E.State == EntityState.Added || E.State == EntityState.Modified || E.State == EntityState.Deleted)
+                .ToList();
 
 
             var auditEntries = new List<AuditLog>();
