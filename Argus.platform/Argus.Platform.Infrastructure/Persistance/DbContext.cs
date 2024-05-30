@@ -1,8 +1,10 @@
 ﻿using Argus.Platform.Core.Common;
+using Argus.Platform.Core.Companies;
 using Argus.Platform.Core.Complience.Audits;
 using Argus.Platform.Core.Complience.Documents;
 using Argus.Platform.Core.Complience.Project;
 using Argus.Platform.Core.Configuration;
+using Argus.Platform.Core.Customers;
 using Argus.Platform.Core.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -47,7 +49,12 @@ namespace Argus.Platform.Infrastructure.Persistance
 
         public DbSet<AuditTrail> AuditLogs { get; set; }
 
-       
+        public DbSet<Company> Company { get; set; }
+        public DbSet<Branch> Branches { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+
+
+
         IHttpContextAccessor _context { get; set; }
 
         public ApiContext(DbContextOptions<ApiContext> options, IHttpContextAccessor context)
