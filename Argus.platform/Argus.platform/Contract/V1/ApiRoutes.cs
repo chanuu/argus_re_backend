@@ -99,5 +99,26 @@
             // Add more routes as needed
         }
 
+        public static class Company 
+        {
+            public const string GetAll = Base + "/company";
+            public const string Get = Base + "/company/{id}";
+            public const string Create = Base + "/company";
+            public const string Delete = Base + "/company/{id}";
+            public const string Update = Base + "/company/{id}";
+          
+
+        }
+
+        public static class Branch
+        {
+            public const string GetAll = Base + "/branch";
+            public const string Get = Base + "/branch/{id}";
+            public const string Create = Base + "/branch";
+            public const string Delete = Base + "/branch/{id}";
+            public const string Update = Base + "/branch/{id}";
+
+
+        }
     }
 }
