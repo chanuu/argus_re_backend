@@ -6,6 +6,7 @@ using Argus.Platform.Core.Complience.Project;
 using Argus.Platform.Core.Configuration;
 using Argus.Platform.Core.Customers;
 using Argus.Platform.Core.Identity;
+using Argus.Platform.Core.JobEvents;
 using Argus.Platform.Core.Packages;
 using Argus.Platform.Core.Workflows;
 using Microsoft.AspNetCore.Http;
@@ -58,6 +59,7 @@ namespace Argus.Platform.Infrastructure.Persistance
         public DbSet<Workflow> Workflows { get; set; }
 
         public DbSet<Package> Packages { get; set; }
+        public DbSet<JobEvent> JobEvents { get; set; }
 
         IHttpContextAccessor _context { get; set; }
 
