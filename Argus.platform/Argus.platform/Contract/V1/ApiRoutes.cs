@@ -139,5 +139,15 @@
             public const string Update = Base + "/workflow/{id}";
 
         }
+
+        public static class Package
+        {
+            public const string GetAll = Base + "/package";
+            public const string Get = Base + "/package/{id}";
+            public const string Create = Base + "/package";
+            public const string Delete = Base + "/package/{id}";
+            public const string Update = Base + "/package/{id}";
+
+        }
     }
 }
