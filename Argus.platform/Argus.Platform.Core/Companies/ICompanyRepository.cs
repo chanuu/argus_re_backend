@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Argus.Platform.Core.Companies
 {
-    public interface ICompanyRepository : IRepository<Company>, ITransientService
+    public interface ICompanyRepository : IRepository<Company>, IScopedService
     {
         Company Add(Company company);
         Task<IEnumerable<Company>> GetAllAsync();

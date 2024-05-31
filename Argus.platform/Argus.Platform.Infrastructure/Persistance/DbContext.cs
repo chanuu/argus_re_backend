@@ -6,6 +6,7 @@ using Argus.Platform.Core.Complience.Project;
 using Argus.Platform.Core.Configuration;
 using Argus.Platform.Core.Customers;
 using Argus.Platform.Core.Identity;
+using Argus.Platform.Core.Workflows;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -53,6 +54,7 @@ namespace Argus.Platform.Infrastructure.Persistance
         public DbSet<Branch> Branches { get; set; }
         public DbSet<Customer> Customers { get; set; }
 
+        public DbSet<Workflow> Workflows { get; set; }
 
 
         IHttpContextAccessor _context { get; set; }

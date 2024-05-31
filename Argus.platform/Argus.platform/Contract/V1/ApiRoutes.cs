@@ -118,6 +118,25 @@
             public const string Delete = Base + "/branch/{id}";
             public const string Update = Base + "/branch/{id}";
 
+        }
+
+        public static class Customer
+        {
+            public const string GetAll = Base + "/customer";
+            public const string Get = Base + "/customer/{id}";
+            public const string Create = Base + "/customer";
+            public const string Delete = Base + "/customer/{id}";
+            public const string Update = Base + "/customer/{id}";
+
+        }
+
+        public static class Workflow
+        {
+            public const string GetAll = Base + "/workflow";
+            public const string Get = Base + "/workflow/{id}";
+            public const string Create = Base + "/workflow";
+            public const string Delete = Base + "/workflow/{id}";
+            public const string Update = Base + "/workflow/{id}";
 
         }
     }
