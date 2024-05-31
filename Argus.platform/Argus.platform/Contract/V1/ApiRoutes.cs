@@ -159,5 +159,15 @@
             public const string Update = Base + "/jobEvent/{id}";
 
         }
+
+        public static class WorkItem
+        {
+            public const string GetAll = Base + "/workItem";
+            public const string Get = Base + "/workItem/{id}";
+            public const string Create = Base + "/workItem";
+            public const string Delete = Base + "/workItem/{id}";
+            public const string Update = Base + "/workItem/{id}";
+
+        }
     }
 }

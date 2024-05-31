@@ -34,7 +34,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\v1\Workflows\Dtos\" />
     <Folder Include="NewFolder\" />
   </ItemGroup>
 

@@ -1,4 +1,5 @@
 ﻿using Argus.Platform.Core.Common;
+using Argus.Platform.Core.Packages;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,6 +19,8 @@ namespace Argus.Platform.Core.Companies
         [ForeignKey("CompanyId")]
         public Company Company { get; set; }
         public Guid CompanyId { get; set; }
+
+        public List<Package> Package { get; set; }
         public static Branch Create(string address, string name, Guid tenantId, string email, string contactNo, Guid companyId)
         {
             Branch branch = new Branch()
