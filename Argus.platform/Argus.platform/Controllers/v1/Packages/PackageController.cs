@@ -46,7 +46,7 @@ namespace Argus.Platform.Controllers.v1.Packages
             return CreatedAtAction(nameof(GetPackage), new { id = addedPackage.Id }, addedPackage);
         }
 
-        [HttpPut(ApiRoutes.Package.Create)]
+        [HttpPut(ApiRoutes.Package.Update)]
         public async Task<IActionResult> UpdatePackage(Guid id, PackageDto packageDto)
         {
             var existingPackage = await _packageService.GetPackageAsync(id);

@@ -7,6 +7,8 @@ using Argus.Platform.Core.Configuration;
 using Argus.Platform.Core.Customers;
 using Argus.Platform.Core.Identity;
 using Argus.Platform.Core.JobEvents;
+using Argus.Platform.Core.Jobs;
+using Argus.Platform.Core.JobsWorkflowEvents;
 using Argus.Platform.Core.Packages;
 using Argus.Platform.Core.Workflows;
 using Argus.Platform.Core.WorkItems;
@@ -62,6 +64,9 @@ namespace Argus.Platform.Infrastructure.Persistance
         public DbSet<Package> Packages { get; set; }
         public DbSet<JobEvent> JobEvents { get; set; }
         public DbSet<WorkItem> WorkItems { get; set; }
+        public DbSet<Job> Jobs { get; set; }
+        public DbSet<JobType> JobTypes { get; set; }
+        public DbSet<JobsWorkflowEvent> JobsWorkflowEvents { get; set; }
 
         IHttpContextAccessor _context { get; set; }
 

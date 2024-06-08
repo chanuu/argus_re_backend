@@ -169,5 +169,35 @@
             public const string Update = Base + "/workItem/{id}";
 
         }
+
+        public static class Job
+        {
+            public const string GetAll = Base + "/job";
+            public const string Get = Base + "/job/{id}";
+            public const string Create = Base + "/job";
+            public const string Delete = Base + "/job/{id}";
+            public const string Update = Base + "/job/{id}";
+
+        }
+
+        public static class JobType
+        {
+            public const string GetAll = Base + "/jobType";
+            public const string Get = Base + "/jobType/{id}";
+            public const string Create = Base + "/jobType";
+            public const string Delete = Base + "/jobType/{id}";
+            public const string Update = Base + "/jobType/{id}";
+
+        }
+
+        public static class JobsWorkflowEvent
+        {
+            public const string GetAll = Base + "/jobsWorkflowEvent";
+            public const string Get = Base + "/jobsWorkflowEvent/{id}";
+            public const string Create = Base + "/jobsWorkflowEvent";
+            public const string Delete = Base + "/jobsWorkflowEvent/{id}";
+            public const string Update = Base + "/jobsWorkflowEvent/{id}";
+
+        }
     }
 }

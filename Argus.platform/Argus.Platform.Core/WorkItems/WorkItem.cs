@@ -20,9 +20,9 @@ namespace Argus.Platform.Core.WorkItems
 
         [ForeignKey("UserId")]
         public User User { get; set; }
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
 
-        public static WorkItem Create(Guid tenantId, string Event, int offSset, Guid userId)
+        public static WorkItem Create(Guid tenantId, string Event, int offSset, string userId)
         {
             WorkItem workItem = new WorkItem()
             {
