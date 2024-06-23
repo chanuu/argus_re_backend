@@ -99,5 +99,105 @@
             // Add more routes as needed
         }
 
+        public static class Company 
+        {
+            public const string GetAll = Base + "/company";
+            public const string Get = Base + "/company/{id}";
+            public const string Create = Base + "/company";
+            public const string Delete = Base + "/company/{id}";
+            public const string Update = Base + "/company/{id}";
+          
+
+        }
+
+        public static class Branch
+        {
+            public const string GetAll = Base + "/branch";
+            public const string Get = Base + "/branch/{id}";
+            public const string Create = Base + "/branch";
+            public const string Delete = Base + "/branch/{id}";
+            public const string Update = Base + "/branch/{id}";
+
+        }
+
+        public static class Customer
+        {
+            public const string GetAll = Base + "/customer";
+            public const string Get = Base + "/customer/{id}";
+            public const string Create = Base + "/customer";
+            public const string Delete = Base + "/customer/{id}";
+            public const string Update = Base + "/customer/{id}";
+
+        }
+
+        public static class Workflow
+        {
+            public const string GetAll = Base + "/workflow";
+            public const string Get = Base + "/workflow/{id}";
+            public const string Create = Base + "/workflow";
+            public const string Delete = Base + "/workflow/{id}";
+            public const string Update = Base + "/workflow/{id}";
+
+        }
+
+        public static class Package
+        {
+            public const string GetAll = Base + "/package";
+            public const string Get = Base + "/package/{id}";
+            public const string Create = Base + "/package";
+            public const string Delete = Base + "/package/{id}";
+            public const string Update = Base + "/package/{id}";
+
+        }
+
+        public static class JobEvent
+        {
+            public const string GetAll = Base + "/jobEvent";
+            public const string Get = Base + "/jobEvent/{id}";
+            public const string Create = Base + "/jobEvent";
+            public const string Delete = Base + "/jobEvent/{id}";
+            public const string Update = Base + "/jobEvent/{id}";
+
+        }
+
+        public static class WorkItem
+        {
+            public const string GetAll = Base + "/workItem";
+            public const string Get = Base + "/workItem/{id}";
+            public const string Create = Base + "/workItem";
+            public const string Delete = Base + "/workItem/{id}";
+            public const string Update = Base + "/workItem/{id}";
+
+        }
+
+        public static class Job
+        {
+            public const string GetAll = Base + "/job";
+            public const string Get = Base + "/job/{id}";
+            public const string Create = Base + "/job";
+            public const string Delete = Base + "/job/{id}";
+            public const string Update = Base + "/job/{id}";
+
+        }
+
+        public static class JobType
+        {
+            public const string GetAll = Base + "/jobType";
+            public const string Get = Base + "/jobType/{id}";
+            public const string Create = Base + "/jobType";
+            public const string Delete = Base + "/jobType/{id}";
+            public const string Update = Base + "/jobType/{id}";
+
+        }
+
+        public static class JobsWorkflowEvent
+        {
+            public const string GetAll = Base + "/jobsWorkflowEvent";
+            public const string Get = Base + "/jobsWorkflowEvent/{id}";
+            public const string Create = Base + "/jobsWorkflowEvent";
+            public const string Delete = Base + "/jobsWorkflowEvent/{id}";
+            public const string Update = Base + "/jobsWorkflowEvent/{id}";
+
+        }
     }
 }
