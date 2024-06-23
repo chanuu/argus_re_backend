@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Argus.Platform.Core.Companies;
+using Argus.Platform.Core.WorkItems;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,5 +33,8 @@ namespace Argus.Platform.Core.Identity
         public int LastUpdatedBy { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public List<WorkItem> WorkItem{ get; set; }
+
     }
 }
