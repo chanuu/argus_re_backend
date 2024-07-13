@@ -18,9 +18,9 @@ namespace Argus.Platform.Migrations
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: true),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    LastModifiedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    LastModifiedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     CreatedBy = table.Column<int>(type: "integer", nullable: true),
                     DeletedBy = table.Column<int>(type: "integer", nullable: true),
                     LastUpdatedBy = table.Column<int>(type: "integer", nullable: false),
@@ -44,11 +44,11 @@ namespace Argus.Platform.Migrations
                     ImageUrl = table.Column<string>(type: "text", nullable: true),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false),
                     RefreshToken = table.Column<string>(type: "text", nullable: true),
-                    RefreshTokenExpiryTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    RefreshTokenExpiryTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     ObjectId = table.Column<string>(type: "text", nullable: true),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    LastModifiedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    LastModifiedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     CreatedBy = table.Column<int>(type: "integer", nullable: true),
                     DeletedBy = table.Column<int>(type: "integer", nullable: true),
                     LastUpdatedBy = table.Column<int>(type: "integer", nullable: false),
@@ -74,37 +74,37 @@ namespace Argus.Platform.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DocumentReviews",
+                name: "AuditLogs",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    ReviewBy = table.Column<Guid>(type: "uuid", nullable: false),
-                    DocumentId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ReviewAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    Comment = table.Column<string>(type: "text", nullable: false),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    LastModifiedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    CreatedBy = table.Column<string>(type: "text", nullable: false),
-                    DeletedBy = table.Column<string>(type: "text", nullable: false),
-                    LastUpdatedBy = table.Column<string>(type: "text", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    Type = table.Column<string>(type: "text", nullable: false),
+                    TableName = table.Column<string>(type: "text", nullable: false),
+                    DateTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    OldValues = table.Column<string>(type: "text", nullable: true),
+                    NewValues = table.Column<string>(type: "text", nullable: true),
+                    AffectedColumns = table.Column<string>(type: "text", nullable: true),
+                    PrimaryKey = table.Column<string>(type: "text", nullable: true),
                     RecordSignature = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DocumentReviews", x => x.Id);
+                    table.PrimaryKey("PK_AuditLogs", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "DocumentTypes",
+                name: "Buyers",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    LastModifiedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    Address = table.Column<string>(type: "text", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    LastModifiedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     CreatedBy = table.Column<string>(type: "text", nullable: false),
                     DeletedBy = table.Column<string>(type: "text", nullable: false),
                     LastUpdatedBy = table.Column<string>(type: "text", nullable: false),
@@ -113,27 +113,22 @@ namespace Argus.Platform.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DocumentTypes", x => x.Id);
+                    table.PrimaryKey("PK_Buyers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Projects",
+                name: "Company",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    TenentId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ProjectName = table.Column<string>(type: "text", nullable: false),
-                    Category = table.Column<string>(type: "text", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
-                    AccessLevel = table.Column<int>(type: "integer", nullable: false),
-                    AccessGroupId = table.Column<int>(type: "integer", nullable: false),
-                    OwnerID = table.Column<Guid>(type: "uuid", nullable: false),
-                    DueDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    StartedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    Status = table.Column<string>(type: "text", nullable: false),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    LastModifiedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    TenantId = table.Column<Guid>(type: "uuid", nullable: false),
+                    LogoUrl = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    ContactNo = table.Column<string>(type: "text", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    LastModifiedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     CreatedBy = table.Column<string>(type: "text", nullable: false),
                     DeletedBy = table.Column<string>(type: "text", nullable: false),
                     LastUpdatedBy = table.Column<string>(type: "text", nullable: false),
@@ -142,7 +137,78 @@ namespace Argus.Platform.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Projects", x => x.Id);
+                    table.PrimaryKey("PK_Company", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "JobEvents",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    TenantId = table.Column<Guid>(type: "uuid", nullable: false),
+                    StartingTime = table.Column<string>(type: "text", nullable: false),
+                    EndTime = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Lcation = table.Column<string>(type: "text", nullable: false),
+                    IsAlreadyEvent = table.Column<bool>(type: "boolean", nullable: false),
+                    IsMainEvent = table.Column<bool>(type: "boolean", nullable: false),
+                    Date = table.Column<DateOnly>(type: "date", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    LastModifiedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    CreatedBy = table.Column<string>(type: "text", nullable: false),
+                    DeletedBy = table.Column<string>(type: "text", nullable: false),
+                    LastUpdatedBy = table.Column<string>(type: "text", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    RecordSignature = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_JobEvents", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "JobTypes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Reark = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    LastModifiedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    CreatedBy = table.Column<string>(type: "text", nullable: false),
+                    DeletedBy = table.Column<string>(type: "text", nullable: false),
+                    LastUpdatedBy = table.Column<string>(type: "text", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    RecordSignature = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_JobTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Workflows",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Remark = table.Column<string>(type: "text", nullable: false),
+                    IsHaveDueDate = table.Column<bool>(type: "boolean", nullable: false),
+                    TenantId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    LastModifiedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    CreatedBy = table.Column<string>(type: "text", nullable: false),
+                    DeletedBy = table.Column<string>(type: "text", nullable: false),
+                    LastUpdatedBy = table.Column<string>(type: "text", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    RecordSignature = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Workflows", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -252,27 +318,81 @@ namespace Argus.Platform.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Documents",
+                name: "WorkItems",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Code = table.Column<string>(type: "text", nullable: false),
+                    TenantId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Event = table.Column<string>(type: "text", nullable: false),
+                    OffSset = table.Column<int>(type: "integer", nullable: false),
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    LastModifiedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    CreatedBy = table.Column<string>(type: "text", nullable: false),
+                    DeletedBy = table.Column<string>(type: "text", nullable: false),
+                    LastUpdatedBy = table.Column<string>(type: "text", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    RecordSignature = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_WorkItems_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Branches",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    TenantId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Address = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    ContactNo = table.Column<string>(type: "text", nullable: false),
+                    CompanyId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    LastModifiedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    CreatedBy = table.Column<string>(type: "text", nullable: false),
+                    DeletedBy = table.Column<string>(type: "text", nullable: false),
+                    LastUpdatedBy = table.Column<string>(type: "text", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    RecordSignature = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Branches", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Branches_Company_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Company",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Jobs",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     TenantId = table.Column<Guid>(type: "uuid", nullable: false),
-                    AccessLevel = table.Column<string>(type: "text", nullable: false),
-                    ValidPeriod = table.Column<int>(type: "integer", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
-                    IssueDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    AlertBefore = table.Column<int>(type: "integer", nullable: false),
-                    IsExpired = table.Column<bool>(type: "boolean", nullable: false),
-                    Status = table.Column<int>(type: "integer", nullable: false),
-                    DocumentTypeId = table.Column<Guid>(type: "uuid", nullable: false),
-                    IsRenewable = table.Column<bool>(type: "boolean", nullable: false),
-                    IsReviewable = table.Column<bool>(type: "boolean", nullable: false),
-                    ReviewInterval = table.Column<int>(type: "integer", nullable: false),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    LastModifiedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Note = table.Column<string>(type: "text", nullable: false),
+                    Type = table.Column<int>(type: "integer", nullable: false),
+                    JobTypeId = table.Column<Guid>(type: "uuid", nullable: false),
+                    BranchId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CustomerId = table.Column<Guid>(type: "uuid", nullable: false),
+                    WorkflowId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    LastModifiedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     CreatedBy = table.Column<string>(type: "text", nullable: false),
                     DeletedBy = table.Column<string>(type: "text", nullable: false),
                     LastUpdatedBy = table.Column<string>(type: "text", nullable: false),
@@ -281,31 +401,30 @@ namespace Argus.Platform.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Documents", x => x.Id);
+                    table.PrimaryKey("PK_Jobs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Documents_DocumentTypes_DocumentTypeId",
-                        column: x => x.DocumentTypeId,
-                        principalTable: "DocumentTypes",
+                        name: "FK_Jobs_JobTypes_JobTypeId",
+                        column: x => x.JobTypeId,
+                        principalTable: "JobTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProjectTasks",
+                name: "Customers",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    CategoryID = table.Column<int>(type: "integer", nullable: false),
-                    DueDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    HandleByID = table.Column<Guid>(type: "uuid", nullable: false),
-                    OwnerId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CompletedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    Importance = table.Column<string>(type: "text", nullable: false),
+                    TenantId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Note = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    ContactNo = table.Column<string>(type: "text", nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false),
-                    ProjectId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    LastModifiedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    BranchId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    LastModifiedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     CreatedBy = table.Column<string>(type: "text", nullable: false),
                     DeletedBy = table.Column<string>(type: "text", nullable: false),
                     LastUpdatedBy = table.Column<string>(type: "text", nullable: false),
@@ -314,59 +433,29 @@ namespace Argus.Platform.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProjectTasks", x => x.Id);
+                    table.PrimaryKey("PK_Customers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProjectTasks_Projects_ProjectId",
-                        column: x => x.ProjectId,
-                        principalTable: "Projects",
+                        name: "FK_Customers_Branches_BranchId",
+                        column: x => x.BranchId,
+                        principalTable: "Branches",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "DocumentRenewals",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    TenantId = table.Column<int>(type: "integer", nullable: false),
-                    FromDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    ExpireDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    ScanCopy = table.Column<string>(type: "text", nullable: false),
-                    DocumentId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Status = table.Column<int>(type: "integer", nullable: false),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    LastModifiedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    CreatedBy = table.Column<string>(type: "text", nullable: false),
-                    DeletedBy = table.Column<string>(type: "text", nullable: false),
-                    LastUpdatedBy = table.Column<string>(type: "text", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    RecordSignature = table.Column<Guid>(type: "uuid", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DocumentRenewals", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_DocumentRenewals_Documents_DocumentId",
-                        column: x => x.DocumentId,
-                        principalTable: "Documents",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TaskAttachment",
+                name: "Packages",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     TenantId = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    Url = table.Column<string>(type: "text", nullable: false),
-                    TaskMasterId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ProjectTaskId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    LastModifiedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Discription = table.Column<string>(type: "text", nullable: false),
+                    Price = table.Column<double>(type: "double precision", nullable: false),
+                    CoverImage = table.Column<string>(type: "text", nullable: false),
+                    BranchId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    LastModifiedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     CreatedBy = table.Column<string>(type: "text", nullable: false),
                     DeletedBy = table.Column<string>(type: "text", nullable: false),
                     LastUpdatedBy = table.Column<string>(type: "text", nullable: false),
@@ -375,29 +464,28 @@ namespace Argus.Platform.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TaskAttachment", x => x.Id);
+                    table.PrimaryKey("PK_Packages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TaskAttachment_ProjectTasks_TaskMasterId",
-                        column: x => x.TaskMasterId,
-                        principalTable: "ProjectTasks",
+                        name: "FK_Packages_Branches_BranchId",
+                        column: x => x.BranchId,
+                        principalTable: "Branches",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "TaskComments",
+                name: "JobsWorkflowEvents",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    TenantId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Comment = table.Column<string>(type: "text", nullable: false),
-                    CommentBy = table.Column<int>(type: "integer", nullable: false),
-                    CommentAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    Tagged = table.Column<Guid>(type: "uuid", nullable: false),
-                    ProjectTaskId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreationTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DeletionTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    LastModifiedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Event = table.Column<string>(type: "text", nullable: false),
+                    DueDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    status = table.Column<int>(type: "integer", nullable: false),
+                    JobId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    DeletionTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    LastModifiedOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     CreatedBy = table.Column<string>(type: "text", nullable: false),
                     DeletedBy = table.Column<string>(type: "text", nullable: false),
                     LastUpdatedBy = table.Column<string>(type: "text", nullable: false),
@@ -406,11 +494,17 @@ namespace Argus.Platform.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TaskComments", x => x.Id);
+                    table.PrimaryKey("PK_JobsWorkflowEvents", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TaskComments_ProjectTasks_ProjectTaskId",
-                        column: x => x.ProjectTaskId,
-                        principalTable: "ProjectTasks",
+                        name: "FK_JobsWorkflowEvents_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_JobsWorkflowEvents_Jobs_JobId",
+                        column: x => x.JobId,
+                        principalTable: "Jobs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -453,29 +547,39 @@ namespace Argus.Platform.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_DocumentRenewals_DocumentId",
-                table: "DocumentRenewals",
-                column: "DocumentId");
+                name: "IX_Branches_CompanyId",
+                table: "Branches",
+                column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Documents_DocumentTypeId",
-                table: "Documents",
-                column: "DocumentTypeId");
+                name: "IX_Customers_BranchId",
+                table: "Customers",
+                column: "BranchId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProjectTasks_ProjectId",
-                table: "ProjectTasks",
-                column: "ProjectId");
+                name: "IX_Jobs_JobTypeId",
+                table: "Jobs",
+                column: "JobTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TaskAttachment_TaskMasterId",
-                table: "TaskAttachment",
-                column: "TaskMasterId");
+                name: "IX_JobsWorkflowEvents_JobId",
+                table: "JobsWorkflowEvents",
+                column: "JobId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TaskComments_ProjectTaskId",
-                table: "TaskComments",
-                column: "ProjectTaskId");
+                name: "IX_JobsWorkflowEvents_UserId",
+                table: "JobsWorkflowEvents",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Packages_BranchId",
+                table: "Packages",
+                column: "BranchId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkItems_UserId",
+                table: "WorkItems",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -497,34 +601,46 @@ namespace Argus.Platform.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "DocumentRenewals");
+                name: "AuditLogs");
 
             migrationBuilder.DropTable(
-                name: "DocumentReviews");
+                name: "Buyers");
 
             migrationBuilder.DropTable(
-                name: "TaskAttachment");
+                name: "Customers");
 
             migrationBuilder.DropTable(
-                name: "TaskComments");
+                name: "JobEvents");
+
+            migrationBuilder.DropTable(
+                name: "JobsWorkflowEvents");
+
+            migrationBuilder.DropTable(
+                name: "Packages");
+
+            migrationBuilder.DropTable(
+                name: "Workflows");
+
+            migrationBuilder.DropTable(
+                name: "WorkItems");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Jobs");
+
+            migrationBuilder.DropTable(
+                name: "Branches");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Documents");
+                name: "JobTypes");
 
             migrationBuilder.DropTable(
-                name: "ProjectTasks");
-
-            migrationBuilder.DropTable(
-                name: "DocumentTypes");
-
-            migrationBuilder.DropTable(
-                name: "Projects");
+                name: "Company");
         }
     }
 }
