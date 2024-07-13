@@ -1,5 +1,4 @@
 ﻿using Argus.Platform.Core.Common;
-using Argus.Platform.Core.Complience.Documents;
 using Argus.Platform.Core.Jobs;
 using Microsoft.EntityFrameworkCore;
 using System;

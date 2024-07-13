@@ -1,10 +1,7 @@
-﻿using Argus.Platform.Application.Complience;
-using Argus.Platform.Application.Jobs;
+﻿using Argus.Platform.Application.Jobs;
 using Argus.Platform.Contract.V1;
-using Argus.Platform.Controllers.v1.Documents.DTOs;
 using Argus.Platform.Controllers.v1.Jobs.Dtos;
 using Argus.Platform.Controllers.v1.Packages.Dtos;
-using Argus.Platform.Core.Complience.Documents;
 using Argus.Platform.Core.Jobs;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;

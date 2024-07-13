@@ -34,7 +34,7 @@ namespace Argus.Platform.Controllers.v1.Files
         }
 
 
-        [HttpPost(ApiRoutes.Files.GetAll)]
+        [HttpGet(ApiRoutes.Files.GetAll)]
         public async Task<IActionResult> GetAllFilesAsync(string bucketName, string? prefix)
         {
             var bucketExists = await _s3Client.DoesS3BucketExistAsync(bucketName);

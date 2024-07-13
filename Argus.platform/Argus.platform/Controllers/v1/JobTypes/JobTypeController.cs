@@ -1,7 +1,5 @@
-﻿using Argus.Platform.Application.Complience.DocumentTypes;
-using Argus.Platform.Application.Jobs;
+﻿using Argus.Platform.Application.Jobs;
 using Argus.Platform.Contract.V1;
-using Argus.Platform.Controllers.v1.DocumentTypes.DTOs;
 using Argus.Platform.Controllers.v1.Jobs.Dtos;
 using Argus.Platform.Controllers.v1.JobTypes.Dtos;
 using Argus.Platform.Core.Jobs;

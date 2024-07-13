@@ -1,6 +1,5 @@
 ﻿using Argus.Platform.Core.Common;
 using Argus.Platform.Core.Companies;
-using Argus.Platform.Core.Complience.Audits;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

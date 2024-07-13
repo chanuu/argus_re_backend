@@ -1,5 +1,5 @@
-﻿using Argus.Platform.Core.Common;
-using Argus.Platform.Core.Complience.Documents;
+﻿
+using Argus.Platform.Core.Common;
 using Argus.Platform.Core.Workflows;
 using System;
 using System.Collections.Generic;

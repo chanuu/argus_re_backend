@@ -8,6 +8,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\v1\Audits\**" />
+    <Compile Remove="Controllers\v1\Documents\**" />
+    <Compile Remove="Controllers\v1\DocumentTypes\**" />
+    <Compile Remove="Controllers\v1\Projects\**" />
+    <Content Remove="Controllers\v1\Audits\**" />
+    <Content Remove="Controllers\v1\Documents\**" />
+    <Content Remove="Controllers\v1\DocumentTypes\**" />
+    <Content Remove="Controllers\v1\Projects\**" />
+    <EmbeddedResource Remove="Controllers\v1\Audits\**" />
+    <EmbeddedResource Remove="Controllers\v1\Documents\**" />
+    <EmbeddedResource Remove="Controllers\v1\DocumentTypes\**" />
+    <EmbeddedResource Remove="Controllers\v1\Projects\**" />
+    <None Remove="Controllers\v1\Audits\**" />
+    <None Remove="Controllers\v1\Documents\**" />
+    <None Remove="Controllers\v1\DocumentTypes\**" />
+    <None Remove="Controllers\v1\Projects\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Amazon.Lambda.AspNetCoreServer.Hosting" Version="1.7.0" />
     <PackageReference Include="AWSSDK.Core" Version="3.7.303.5" />
     <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.300" />
