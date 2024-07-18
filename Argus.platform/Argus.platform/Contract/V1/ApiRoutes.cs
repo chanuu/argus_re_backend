@@ -105,7 +105,7 @@
             public const string Get = Base + "/company/{id}";
             public const string Create = Base + "/company";
             public const string Delete = Base + "/company/{id}";
-            public const string Update = Base + "/company/{id}";
+            public const string Update = Base + "/company";
           
 
         }
