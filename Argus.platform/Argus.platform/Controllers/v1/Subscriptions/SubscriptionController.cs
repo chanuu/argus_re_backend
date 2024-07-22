@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Argus.Platform.Controllers.v1.Subscriptions
 {
+    [ApiController]
     public class SubscriptionController : ControllerBase
     {
         private readonly ISubscriptionService _subscriptionService;
