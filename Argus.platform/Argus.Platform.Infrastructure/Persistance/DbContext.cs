@@ -5,6 +5,7 @@ using Argus.Platform.Core.Complience.Documents;
 using Argus.Platform.Core.Complience.Project;
 using Argus.Platform.Core.Configuration;
 using Argus.Platform.Core.Customers;
+using Argus.Platform.Core.Features;
 using Argus.Platform.Core.Identity;
 using Argus.Platform.Core.JobEvents;
 using Argus.Platform.Core.Jobs;
@@ -28,7 +29,7 @@ using System.Xml.Linq;
 
 namespace Argus.Platform.Infrastructure.Persistance
 {
-   public class ApiContext : IdentityDbContext<User, Role, string>, IUnitOfWork
+    public class ApiContext : IdentityDbContext<User, Role, string>, IUnitOfWork
     {
         public ApiContext(DbContextOptions<ApiContext> options) : base(options) { }
 
@@ -69,6 +70,8 @@ namespace Argus.Platform.Infrastructure.Persistance
         public DbSet<JobType> JobTypes { get; set; }
         public DbSet<JobsWorkflowEvent> JobsWorkflowEvents { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
+        public DbSet<Feature> Features { get; set; }
+
 
         IHttpContextAccessor _context { get; set; }
 
