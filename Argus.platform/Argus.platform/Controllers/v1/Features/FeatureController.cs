@@ -18,14 +18,14 @@ namespace Argus.Platform.Controllers.v1.Features
             _featureService = featureService;
         }
 
-        [HttpGet(ApiRoutes.Company.GetAll)]
+        [HttpGet(ApiRoutes.Feature.GetAll)]
         public async Task<IActionResult> GetAlFeatures()
         {
             var feature = await _featureService.GetAllFeaturesAsync();
             return Ok(feature);
         }
 
-        [HttpGet(ApiRoutes.Company.Get)]
+        [HttpGet(ApiRoutes.Feature.Get)]
         public async Task<IActionResult> GetFeature(Guid id)
         {
             var feature = await _featureService.GetFeatureAsync(id);
@@ -36,7 +36,7 @@ namespace Argus.Platform.Controllers.v1.Features
             return Ok(feature);
         }
 
-        [HttpPost(ApiRoutes.Company.Create)]
+        [HttpPost(ApiRoutes.Feature.Create)]
         public async Task<IActionResult> AddFeature(FeatureDto featureDto)
         {
 
@@ -46,7 +46,7 @@ namespace Argus.Platform.Controllers.v1.Features
             return CreatedAtAction(nameof(GetFeature), new { id = addedFeature.Id }, addedFeature);
         }
 
-        [HttpPut(ApiRoutes.Company.Create)]
+        [HttpPut(ApiRoutes.Feature.Create)]
         public async Task<IActionResult> UpdateFeature(Guid id, FeatureDto featureDto)
         {
             var existingFeature = await _featureService.GetFeatureAsync(id);

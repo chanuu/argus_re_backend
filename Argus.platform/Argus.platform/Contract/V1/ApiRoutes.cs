@@ -208,5 +208,14 @@
             public const string Delete = Base + "/subscription/{id}";
             public const string Update = Base + "/subscription/{id}";
         }
+
+        public static class Feature
+        {
+            public const string GetAll = Base + "/feature";
+            public const string Get = Base + "/feature/{id}";
+            public const string Create = Base + "/feature";
+            public const string Delete = Base + "/feature/{id}";
+            public const string Update = Base + "/feature/{id}";
+        }
     }
 }
