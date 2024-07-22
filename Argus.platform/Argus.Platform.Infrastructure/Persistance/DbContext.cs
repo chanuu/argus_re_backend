@@ -10,6 +10,7 @@ using Argus.Platform.Core.JobEvents;
 using Argus.Platform.Core.Jobs;
 using Argus.Platform.Core.JobsWorkflowEvents;
 using Argus.Platform.Core.Packages;
+using Argus.Platform.Core.Subscriptions;
 using Argus.Platform.Core.Workflows;
 using Argus.Platform.Core.WorkItems;
 using Microsoft.AspNetCore.Http;
@@ -67,6 +68,7 @@ namespace Argus.Platform.Infrastructure.Persistance
         public DbSet<Job> Jobs { get; set; }
         public DbSet<JobType> JobTypes { get; set; }
         public DbSet<JobsWorkflowEvent> JobsWorkflowEvents { get; set; }
+        public DbSet<Subscription> Subscriptions { get; set; }
 
         IHttpContextAccessor _context { get; set; }
 

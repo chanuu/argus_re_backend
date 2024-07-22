@@ -199,5 +199,14 @@
             public const string Update = Base + "/jobsWorkflowEvent/{id}";
 
         }
+
+        public static class Subscription
+        {
+            public const string GetAll = Base + "/subscription";
+            public const string Get = Base + "/subscription/{id}";
+            public const string Create = Base + "/subscription";
+            public const string Delete = Base + "/subscription/{id}";
+            public const string Update = Base + "/subscription/{id}";
+        }
     }
 }
