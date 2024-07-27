@@ -37,16 +37,18 @@ namespace Argus.Platform.Infrastructure.Persistance.Repository.Customers
 
         public async Task<Customer> GetAsync(Guid customerId)
         {
-            return await _context.Customers.SingleOrDefaultAsync();
+            return await _context.Customers.SingleOrDefaultAsync(c => c.Id == customerId);
         }
 
         public async Task<Customer> Update(Customer customer)
         {
-            _context.Customers.Update(customer);
-
+            var existingCustomer = await _context.Customers.FindAsync(customer.Id);
+            if (existingCustomer != null)
+            {
+                _context.Entry(existingCustomer).CurrentValues.SetValues(customer);
+            }
             await _context.SaveChangesAsync();
-
-            return customer;
+            return existingCustomer;
         }
     }
 }

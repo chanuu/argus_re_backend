@@ -44,7 +44,7 @@ namespace Argus.Platform.Controllers.v1.Companies
             return CreatedAtAction(nameof(GetCompany), new { id = addedCompany.Id }, addedCompany);
         }
 
-        [HttpPut(ApiRoutes.Company.Create)]
+        [HttpPut(ApiRoutes.Company.Update)]
         public async Task<IActionResult> UpdateStudent(Guid id, CompanyDto companyDto)
         {
             var existingCompany = await _companyService.GetCompanyAsync(id);
@@ -53,10 +53,14 @@ namespace Argus.Platform.Controllers.v1.Companies
                 return NotFound();
             }
 
-            existingCompany = companyDto.Adapt<Company>();
+            existingCompany.ContactNo = companyDto.ContactNo;
+            existingCompany.Email = companyDto.Email;
+            existingCompany.LogoUrl = companyDto.LogoUrl;
+            existingCompany.Name = companyDto.Name;
+            existingCompany.TenantId = companyDto.TenantId;
 
             var updatedCompany = await _companyService.UpdateCompanyAsync(existingCompany);
-            return Ok(updatedCompany);
+            return Ok(updatedCompany);                    
         }
 
     }

@@ -37,16 +37,18 @@ namespace Argus.Platform.Infrastructure.Persistance.Repository.Companies
 
         public async Task<Company> GetAsync(Guid companyId)
         {
-            return await _context.Company.SingleOrDefaultAsync();
+            return await _context.Company.SingleOrDefaultAsync(c => c.Id == companyId);
         }
 
         public async Task<Company> Update(Company company )
-        {
-            _context.Company.Update(company);
-
+        {          
+            var existingCopany = await _context.Company.FindAsync(company.Id);
+            if (existingCopany != null)
+            {
+                _context.Entry(existingCopany).CurrentValues.SetValues(company);
+            }
             await _context.SaveChangesAsync();
-
-            return company;
+            return existingCopany;
         }
     }
 }
