@@ -6,20 +6,16 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Argus.Platform.Migrations
 {
     /// <inheritdoc />
-    public partial class addevent : Migration
+    public partial class _refaterdb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "JobsWorkflowEvents",
+                name: "UserBranch",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Event = table.Column<string>(type: "text", nullable: false),
-                    DueDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    status = table.Column<int>(type: "integer", nullable: false),
-                    JobId = table.Column<Guid>(type: "uuid", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: false),
                     CreationTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     DeletionTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
@@ -28,33 +24,34 @@ namespace Argus.Platform.Migrations
                     DeletedBy = table.Column<string>(type: "text", nullable: false),
                     LastUpdatedBy = table.Column<string>(type: "text", nullable: false),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
-                    RecordSignature = table.Column<Guid>(type: "uuid", nullable: false)
+                    RecordSignature = table.Column<Guid>(type: "uuid", nullable: false),
+                    TenantId = table.Column<Guid>(type: "uuid", nullable: true),
+                    BranchId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_JobsWorkflowEvents", x => x.Id);
+                    table.PrimaryKey("PK_UserBranch", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_JobsWorkflowEvents_AspNetUsers_UserId",
+                        name: "FK_UserBranch_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_JobsWorkflowEvents_Jobs_JobId",
-                        column: x => x.JobId,
-                        principalTable: "Jobs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_UserBranch_Branches_BranchId",
+                        column: x => x.BranchId,
+                        principalTable: "Branches",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_JobsWorkflowEvents_JobId",
-                table: "JobsWorkflowEvents",
-                column: "JobId");
+                name: "IX_UserBranch_BranchId",
+                table: "UserBranch",
+                column: "BranchId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_JobsWorkflowEvents_UserId",
-                table: "JobsWorkflowEvents",
+                name: "IX_UserBranch_UserId",
+                table: "UserBranch",
                 column: "UserId");
         }
 
@@ -62,7 +59,7 @@ namespace Argus.Platform.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "JobsWorkflowEvents");
+                name: "UserBranch");
         }
     }
 }

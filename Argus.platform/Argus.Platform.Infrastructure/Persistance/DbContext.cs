@@ -1,8 +1,5 @@
 ﻿using Argus.Platform.Core.Common;
 using Argus.Platform.Core.Companies;
-using Argus.Platform.Core.Complience.Audits;
-using Argus.Platform.Core.Complience.Documents;
-using Argus.Platform.Core.Complience.Project;
 using Argus.Platform.Core.Configuration;
 using Argus.Platform.Core.Customers;
 using Argus.Platform.Core.Features;
@@ -33,26 +30,6 @@ namespace Argus.Platform.Infrastructure.Persistance
     {
         public ApiContext(DbContextOptions<ApiContext> options) : base(options) { }
 
-        public DbSet<Document> Documents { get; set; }
-
-        public DbSet<DocumentType> DocumentTypes { get; set; }
-
-        public DbSet<DocumentRenewal> DocumentRenewals { get; set; }
-
-        public DbSet<Project> Projects { get; set; }
-
-        public DbSet<ProjectTask> ProjectTasks { get; set; }
-
-        public DbSet<TaskComments> TaskComments { get; set; }
-
-        public DbSet<TaskAttachment> TaskAttachment { get; set; }
-
-        public DbSet<DocumentReview> DocumentReviews { get; set; }
-
-        public DbSet<Audit> Audits { get; set; }
-
-        public DbSet<AuditRequirements> AuditRequirements { get; set; }
-
         public DbSet<Buyer> Buyers { get; set; }
 
         public DbSet<AuditTrail> AuditLogs { get; set; }
@@ -72,6 +49,10 @@ namespace Argus.Platform.Infrastructure.Persistance
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<Feature> Features { get; set; }
 
+
+        public DbSet<Tenants> Tenants { get; set; }
+
+        
 
         IHttpContextAccessor _context { get; set; }
 
@@ -124,7 +105,10 @@ namespace Argus.Platform.Infrastructure.Persistance
         {
 
 
-            var entries = ChangeTracker.Entries().Where(E => E.State == EntityState.Added || E.State == EntityState.Modified || E.State == EntityState.Deleted).ToList();
+            var entries = ChangeTracker
+                .Entries()
+                .Where(E => E.State == EntityState.Added || E.State == EntityState.Modified || E.State == EntityState.Deleted)
+                .ToList();
 
 
             var auditEntries = new List<AuditLog>();
@@ -132,7 +116,7 @@ namespace Argus.Platform.Infrastructure.Persistance
             {
 
 
-                if (entry.Entity is Audit || entry.State == EntityState.Detached)
+                if (entry.Entity is BaseEntity || entry.State == EntityState.Detached)
                     continue;
                 var auditEntry = new AuditLog(entry);
 

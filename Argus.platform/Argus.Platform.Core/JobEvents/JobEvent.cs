@@ -10,7 +10,7 @@ namespace Argus.Platform.Core.JobEvents
 {
     public class JobEvent : BaseEntity
     {
-        public Guid TenantId { get; set; }
+
         public string StartingTime { get; set; }
         public string EndTime { get; set; }
         public string Name { get; set; }

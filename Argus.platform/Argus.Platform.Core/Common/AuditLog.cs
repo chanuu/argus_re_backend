@@ -1,5 +1,4 @@
-﻿using Argus.Platform.Core.Complience.Audits;
-using Argus.Platform.Core.Identity;
+﻿using Argus.Platform.Core.Identity;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;

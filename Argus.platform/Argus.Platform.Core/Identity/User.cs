@@ -36,5 +36,12 @@ namespace Argus.Platform.Core.Identity
 
         public List<WorkItem> WorkItem{ get; set; }
 
+        public Guid TenantId { get; set; }
+
+        public Guid BranchId { get; set; }
+
+        // Navigation property for the many-to-many relationship
+        public ICollection<UserBranch> UserBranches { get; set; }
+
     }
 }

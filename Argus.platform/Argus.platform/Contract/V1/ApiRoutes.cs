@@ -22,6 +22,16 @@
 
         }
 
+        public static class Tenant
+        {
+            public const string GetAll = Base + "/tenant";
+            public const string Get = Base + "/tenants/{id}";
+            public const string Create = Base + "/tenants";
+            public const string Update = Base + "/tenants";
+            public const string Delete = Base + "/tenants/{id}";
+
+        }
+
         public static class Document
         {
             public const string GetAll = Base + "/documents";

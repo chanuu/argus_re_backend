@@ -14,7 +14,7 @@ namespace Argus.Platform.Core.WorkItems
 {
     public class WorkItem : BaseEntity
     {
-        public Guid TenantId { get; set; }
+     
         public string Event { get; set; }
         public int OffSset { get; set; }
 

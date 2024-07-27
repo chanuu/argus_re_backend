@@ -1,6 +1,4 @@
 ﻿using Argus.Platform.Core.Common;
-using Argus.Platform.Core.Complience.Audits;
-using Argus.Platform.Core.Complience.Documents;
 using System;
 using System.Collections.Generic;
 using System.Linq;

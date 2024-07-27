@@ -1,5 +1,5 @@
-﻿using Argus.Platform.Core.Common;
-using Argus.Platform.Core.Complience.Documents;
+﻿
+using Argus.Platform.Core.Common;
 using Argus.Platform.Core.Workflows;
 using System;
 using System.Collections.Generic;
@@ -13,8 +13,7 @@ namespace Argus.Platform.Core.Jobs
     public class Job : BaseEntity
     {        
         public string Name { get; set; }
-        public Guid TenantId { get; set; }
-
+      
         public string Note { get; set; }
         
         public Type  Type { get; set; }
@@ -23,7 +22,6 @@ namespace Argus.Platform.Core.Jobs
         public JobType JobType { get; set; }
         public Guid JobTypeId { get; set; }
 
-        public Guid BranchId { get; set; }
         public Guid CustomerId { get; set; }
 
         public Guid WorkflowId { get; set; }
