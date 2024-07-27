@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Argus.Platform.Migrations
 {
     [DbContext(typeof(ApiContext))]
-    [Migration("20240713190046__init")]
+    [Migration("20240713192332__init")]
     partial class _init
     {
         /// <inheritdoc />
@@ -78,6 +78,9 @@ namespace Argus.Platform.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<Guid?>("BranchId")
+                        .HasColumnType("uuid");
+
                     b.Property<Guid>("CompanyId")
                         .HasColumnType("uuid");
 
@@ -134,6 +137,9 @@ namespace Argus.Platform.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("BranchId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("ContactNo")
@@ -197,6 +203,9 @@ namespace Argus.Platform.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<Guid?>("BranchId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasColumnType("text");
@@ -232,6 +241,9 @@ namespace Argus.Platform.Migrations
                     b.Property<Guid>("RecordSignature")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
 
                     b.ToTable("Buyers");
@@ -243,7 +255,7 @@ namespace Argus.Platform.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("BranchId")
+                    b.Property<Guid?>("BranchId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("ContactNo")
@@ -296,8 +308,6 @@ namespace Argus.Platform.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BranchId");
 
                     b.ToTable("Customers");
                 });
@@ -359,6 +369,9 @@ namespace Argus.Platform.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("integer");
+
+                    b.Property<Guid>("BranchId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -439,6 +452,9 @@ namespace Argus.Platform.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");
 
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uuid");
+
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");
 
@@ -462,6 +478,9 @@ namespace Argus.Platform.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("BranchId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("CreatedBy")
@@ -530,7 +549,7 @@ namespace Argus.Platform.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("BranchId")
+                    b.Property<Guid?>("BranchId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("CreatedBy")
@@ -596,6 +615,9 @@ namespace Argus.Platform.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid?>("BranchId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasColumnType("text");
@@ -631,6 +653,9 @@ namespace Argus.Platform.Migrations
                     b.Property<Guid>("RecordSignature")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
 
                     b.ToTable("JobTypes");
@@ -640,6 +665,9 @@ namespace Argus.Platform.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("BranchId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("CreatedBy")
@@ -679,6 +707,9 @@ namespace Argus.Platform.Migrations
                     b.Property<Guid>("RecordSignature")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("text");
@@ -701,7 +732,7 @@ namespace Argus.Platform.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("BranchId")
+                    b.Property<Guid?>("BranchId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("CoverImage")
@@ -762,6 +793,9 @@ namespace Argus.Platform.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid?>("BranchId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasColumnType("text");
@@ -814,6 +848,9 @@ namespace Argus.Platform.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("BranchId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("CreatedBy")
@@ -983,17 +1020,6 @@ namespace Argus.Platform.Migrations
                     b.Navigation("Company");
                 });
 
-            modelBuilder.Entity("Argus.Platform.Core.Customers.Customer", b =>
-                {
-                    b.HasOne("Argus.Platform.Core.Companies.Branch", "Branch")
-                        .WithMany()
-                        .HasForeignKey("BranchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Branch");
-                });
-
             modelBuilder.Entity("Argus.Platform.Core.Jobs.Job", b =>
                 {
                     b.HasOne("Argus.Platform.Core.Jobs.JobType", "JobType")
@@ -1026,13 +1052,9 @@ namespace Argus.Platform.Migrations
 
             modelBuilder.Entity("Argus.Platform.Core.Packages.Package", b =>
                 {
-                    b.HasOne("Argus.Platform.Core.Companies.Branch", "Branch")
+                    b.HasOne("Argus.Platform.Core.Companies.Branch", null)
                         .WithMany("Package")
-                        .HasForeignKey("BranchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Branch");
+                        .HasForeignKey("BranchId");
                 });
 
             modelBuilder.Entity("Argus.Platform.Core.WorkItems.WorkItem", b =>

@@ -14,7 +14,7 @@ namespace Argus.Platform.Core.Workflows
         public string Name { get; set; }
         public string Remark { get; set; }
         public bool IsHaveDueDate { get; set; }
-        public Guid TenantId { get; set; }
+     
 
         public static Workflow Create(string remark, string name, Guid tenantId, bool isHaveDueDate)
         {

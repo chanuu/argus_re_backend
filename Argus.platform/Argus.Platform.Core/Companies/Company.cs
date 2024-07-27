@@ -10,7 +10,7 @@ namespace Argus.Platform.Core.Companies
 {
     public class Company : BaseEntity
     {
-        public Guid TenantId { get; set; }
+        
         public string LogoUrl { get; set; }
         public string Name { get; set; }    
         public string Email { get; set; }

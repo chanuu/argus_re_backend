@@ -11,16 +11,13 @@ namespace Argus.Platform.Core.Customers
 {
     public class Customer: BaseEntity
     {
-        public Guid TenantId { get; set; }
+      
         public string Note{ get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
         public string ContactNo { get; set; }
         public Status Status { get; set; }
 
-        [ForeignKey("BranchId")]
-        public Branch Branch { get; set; }
-        public Guid BranchId { get; set; }
         public static Customer Create(string note, string name, Guid tenantId, string email, string contactNo, Status status, Guid branchId)
         {
             Customer customer = new Customer()

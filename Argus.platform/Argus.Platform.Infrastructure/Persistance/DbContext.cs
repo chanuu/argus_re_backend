@@ -45,6 +45,10 @@ namespace Argus.Platform.Infrastructure.Persistance
         public DbSet<JobType> JobTypes { get; set; }
         public DbSet<JobsWorkflowEvent> JobsWorkflowEvents { get; set; }
 
+        public DbSet<Tenants> Tenants { get; set; }
+
+        
+
         IHttpContextAccessor _context { get; set; }
 
         public ApiContext(DbContextOptions<ApiContext> options, IHttpContextAccessor context)

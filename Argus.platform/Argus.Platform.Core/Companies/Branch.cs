@@ -11,7 +11,7 @@ namespace Argus.Platform.Core.Companies
 {
     public class Branch : BaseEntity
     {
-        public Guid TenantId { get; set; }
+    
         public string Address { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
@@ -21,6 +21,8 @@ namespace Argus.Platform.Core.Companies
         public Guid CompanyId { get; set; }
 
         public List<Package> Package { get; set; }
+
+        public ICollection<UserBranch> UserBranches { get; set; }
         public static Branch Create(string address, string name, Guid tenantId, string email, string contactNo, Guid companyId)
         {
             Branch branch = new Branch()

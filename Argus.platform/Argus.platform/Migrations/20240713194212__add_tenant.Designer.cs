@@ -3,6 +3,7 @@ using System;
 using Argus.Platform.Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Argus.Platform.Migrations
 {
     [DbContext(typeof(ApiContext))]
-    partial class ApiContextModelSnapshot : ModelSnapshot
+    [Migration("20240713194212__add_tenant")]
+    partial class _add_tenant
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -248,58 +251,6 @@ namespace Argus.Platform.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Company");
-                });
-
-            modelBuilder.Entity("Argus.Platform.Core.Companies.UserBranch", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("BranchId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("CreatedBy")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("CreationTime")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("DeletedBy")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("DeletionTime")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("LastModifiedOn")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("LastUpdatedBy")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("RecordSignature")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("TenantId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BranchId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserBranch");
                 });
 
             modelBuilder.Entity("Argus.Platform.Core.Configuration.Buyer", b =>
@@ -1129,23 +1080,6 @@ namespace Argus.Platform.Migrations
                     b.Navigation("Company");
                 });
 
-            modelBuilder.Entity("Argus.Platform.Core.Companies.UserBranch", b =>
-                {
-                    b.HasOne("Argus.Platform.Core.Companies.Branch", "Branch")
-                        .WithMany("UserBranches")
-                        .HasForeignKey("BranchId");
-
-                    b.HasOne("Argus.Platform.Core.Identity.User", "User")
-                        .WithMany("UserBranches")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Branch");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Argus.Platform.Core.Jobs.Job", b =>
                 {
                     b.HasOne("Argus.Platform.Core.Jobs.JobType", "JobType")
@@ -1248,8 +1182,6 @@ namespace Argus.Platform.Migrations
             modelBuilder.Entity("Argus.Platform.Core.Companies.Branch", b =>
                 {
                     b.Navigation("Package");
-
-                    b.Navigation("UserBranches");
                 });
 
             modelBuilder.Entity("Argus.Platform.Core.Companies.Company", b =>
@@ -1259,8 +1191,6 @@ namespace Argus.Platform.Migrations
 
             modelBuilder.Entity("Argus.Platform.Core.Identity.User", b =>
                 {
-                    b.Navigation("UserBranches");
-
                     b.Navigation("WorkItem");
                 });
 
