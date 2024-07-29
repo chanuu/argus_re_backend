@@ -46,7 +46,7 @@ namespace Argus.Platform.Controllers.v1.Customers
             return CreatedAtAction(nameof(GetCustomer), new { id = addedCustomer.Id }, addedCustomer);
         }
 
-        [HttpPut(ApiRoutes.Customer.Create)]
+        [HttpPut(ApiRoutes.Customer.Update)]
         public async Task<IActionResult> UpdateCustomer(Guid id, CustomerDto customerDto)
         {
             var existingCustomer = await _customerService.GetCustomerAsync(id);

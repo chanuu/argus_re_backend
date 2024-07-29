@@ -18,17 +18,17 @@ namespace Argus.Platform.Core.Customers
         public string ContactNo { get; set; }
         public Status Status { get; set; }
 
-        public static Customer Create(string note, string name, Guid tenantId, string email, string contactNo, Status status, Guid branchId)
+        public static Customer Create(string note, string name,  string email, string contactNo, Status status )
         {
             Customer customer = new Customer()
             {
-                TenantId = tenantId,
+              
                 Name = name,
                 Email = email,
                 ContactNo = contactNo,
                 Note = note,
                 Status = status,
-                BranchId = branchId
+               
             };
 
             return customer;
