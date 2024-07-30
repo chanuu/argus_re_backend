@@ -11,6 +11,7 @@ using Argus.Platform.Core.Packages;
 using Argus.Platform.Core.Subscriptions;
 using Argus.Platform.Core.Workflows;
 using Argus.Platform.Core.WorkItems;
+using Argus.Platform.Infrastructure.Middleware;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,7 +31,23 @@ namespace Argus.Platform.Infrastructure.Persistance
 {
     public class ApiContext : IdentityDbContext<User, Role, string>, IUnitOfWork
     {
-        public ApiContext(DbContextOptions<ApiContext> options) : base(options) { }
+        private readonly ITenantProvider _tenantProvider;
+        private readonly IBranchProvider _branchProvider;
+        IHttpContextAccessor _context { get; set; }
+        public bool ApplyTenantFilter { get; set; } = true;
+        public bool ApplyBranchFilter { get; set; } = true;
+        public ApiContext(DbContextOptions<ApiContext> options,
+             IHttpContextAccessor context,
+             ITenantProvider tenantProvider,
+             IBranchProvider branchProvider
+
+          ) : base(options)
+        {
+            _context = context;
+            _tenantProvider = tenantProvider;
+            _branchProvider = branchProvider;
+
+        }
 
         public DbSet<Buyer> Buyers { get; set; }
 
@@ -53,16 +72,6 @@ namespace Argus.Platform.Infrastructure.Persistance
         public DbSet<Tenants> Tenants { get; set; }
 
         
-
-        IHttpContextAccessor _context { get; set; }
-
-        public ApiContext(DbContextOptions<ApiContext> options, IHttpContextAccessor context)
-            : base(options)
-        {
-
-            _context = context;
-          
-        }
 
         void UpdateCrudInfo(EntityEntry entry, AuditLog auditEntry)
         {
@@ -114,9 +123,19 @@ namespace Argus.Platform.Infrastructure.Persistance
             var auditEntries = new List<AuditLog>();
             foreach (var entry in entries)
             {
+                if (CurrentTenantId is not null)
+                {
+                    entry.Property("TenantId").CurrentValue = CurrentTenantId;
+                }
 
 
-                if (entry.Entity is BaseEntity || entry.State == EntityState.Detached)
+                if (CurrentBranchId is not null)
+                {
+                    entry.Property("BranchId").CurrentValue = CurrentBranchId;
+                }
+
+
+                if (entry.Entity is AuditLog || entry.State == EntityState.Detached)
                     continue;
                 var auditEntry = new AuditLog(entry);
 
@@ -204,9 +223,58 @@ namespace Argus.Platform.Infrastructure.Persistance
             return true;
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Apply global query filter to all entities inheriting from BaseEntity
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                if (typeof(BaseEntity).IsAssignableFrom(entityType.ClrType))
+                {
+                    var method = typeof(ApiContext).GetMethod(nameof(GetCombinedFilter), BindingFlags.NonPublic | BindingFlags.Instance)
+                        .MakeGenericMethod(entityType.ClrType);
+                    var filter = method.Invoke(this, null);
+                    modelBuilder.Entity(entityType.ClrType).HasQueryFilter((LambdaExpression)filter);
+                }
+            }
+
+            // ApplyUserFilter(modelBuilder);
+
+        }
+
+        private LambdaExpression GetCombinedFilter<TEntity>() where TEntity : BaseEntity
+        {
+            var param = Expression.Parameter(typeof(TEntity), "e");
+
+            // Tenant filter
+            var tenantProp = Expression.Property(param, nameof(BaseEntity.TenantId));
+            var tenantId = Expression.Property(Expression.Constant(this), nameof(ApiContext.CurrentTenantId));
+            var tenantIdValue = Expression.Convert(tenantId, typeof(Guid));
+            var tenantFilter = Expression.Equal(tenantProp, tenantIdValue);
+
+            // Branch filter
+            var branchProp = Expression.Property(param, nameof(BaseEntity.BranchId));
+            var branchId = Expression.Property(Expression.Constant(this), nameof(ApiContext.CurrentBranchId));
+            var branchIdValue = Expression.Convert(branchId, typeof(Guid?));
+            var branchFilter = Expression.Equal(branchProp, branchIdValue);
+
+            // Combine filters
+            var combinedFilter = Expression.AndAlso(tenantFilter, branchFilter);
+
+            var filter = Expression.Lambda(combinedFilter, param);
+            return filter;
+        }
+
+        // Property to hold the current tenant ID
+        public Guid? CurrentTenantId => ApplyTenantFilter ? _tenantProvider.GetTenantId() : Guid.Empty;
+
+        // Property to hold the current branch ID
+        public Guid? CurrentBranchId => ApplyBranchFilter ? _branchProvider.GetBranchId() : null;
 
 
-       
+
+
 
     }
 }

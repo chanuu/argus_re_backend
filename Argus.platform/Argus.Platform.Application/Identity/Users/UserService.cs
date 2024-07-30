@@ -183,6 +183,8 @@ namespace Argus.Platform.Application.Identity.Users
                 {
                     new Claim(ClaimTypes.Name, User.UserName),
                     new Claim(ClaimTypes.NameIdentifier, User.Id),
+                    new Claim("tenantId",Convert.ToString(User.TenantId)),
+                    new Claim("branchId",Convert.ToString(User.BranchId)),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
 
                 };

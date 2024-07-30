@@ -1,4 +1,5 @@
 ﻿using Argus.Platform.Core.Identity;
+using Argus.Platform.Infrastructure.Middleware;
 using Argus.Platform.Infrastructure.Persistance;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -19,17 +20,19 @@ namespace Argus.Platform.Infrastructure
            string connectionString,
            string migrationsAssemblyName)
         {
-            return services.AddDbContext<ApiContext>(options =>
-            {
-              
-                options.UseNpgsql(connectionString, npgsqlOptionsAction: npgsqlOptions =>
+           
+
+                services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
+               .AddScoped<ITenantProvider, TenantProvider>()
+               .AddScoped<IBranchProvider, BranchProvider>();
+                return services.AddDbContext<ApiContext>(options =>
                 {
-                    npgsqlOptions.MigrationsAssembly(migrationsAssemblyName);
-                });
-            })
-                
-                .AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
-                
+
+                    options.UseNpgsql(connectionString, npgsqlOptionsAction: npgsqlOptions =>
+                    {
+                        npgsqlOptions.MigrationsAssembly(migrationsAssemblyName);
+                    });
+                })
                 .AddDefaultIdentity<User>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = true;
@@ -40,11 +43,11 @@ namespace Argus.Platform.Infrastructure
                 options.Password.RequireUppercase = false;
                 options.User.RequireUniqueEmail = true;
             })
-                
+
                .AddRoles<Role>()
 
                .AddEntityFrameworkStores<ApiContext>()
-               
+
                .Services;
         }
     }
