@@ -136,7 +136,7 @@
             public const string Get = Base + "/customer/{id}";
             public const string Create = Base + "/customer";
             public const string Delete = Base + "/customer/{id}";
-            public const string Update = Base + "/customer/{id}";
+            public const string Update = Base + "/customer";
 
         }
 
