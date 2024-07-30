@@ -67,6 +67,7 @@ namespace Argus.Platform
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseMiddleware<ExceptionMiddleware>();
+            app.UseMiddleware<TenantMiddleware>();
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
 
