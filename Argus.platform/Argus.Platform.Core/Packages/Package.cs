@@ -18,13 +18,11 @@ namespace Argus.Platform.Core.Packages
         public string CoverImage { get; set; }
         
      
-        public static Package Create( string name, Guid tenantId, string discription, string coverImage, double price, Guid branchId)
+        public static Package Create( string name,  string discription, string coverImage, double price)
         {
             Package package = new Package()
-            {
-                TenantId = tenantId,
-                Name = name,             
-                BranchId = branchId,
+            {               
+                Name = name,                           
                 CoverImage = coverImage,
                 Price = price,
                 Discription = discription

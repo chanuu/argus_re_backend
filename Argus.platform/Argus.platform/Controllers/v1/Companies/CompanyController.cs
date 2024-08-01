@@ -57,7 +57,7 @@ namespace Argus.Platform.Controllers.v1.Companies
             existingCompany.Email = companyDto.Email;
             existingCompany.LogoUrl = companyDto.LogoUrl;
             existingCompany.Name = companyDto.Name;
-            existingCompany.TenantId = companyDto.TenantId;
+          
 
             var updatedCompany = await _companyService.UpdateCompanyAsync(existingCompany);
             return Ok(updatedCompany);                    
